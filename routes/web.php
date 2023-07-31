@@ -7,6 +7,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,16 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/home', function () {
+        if (Auth::user()->role == 'user') {
+            return redirect('/user/dashboard');
+        } elseif (Auth::user()->role == 'admin') {
+            return redirect('/admin/dashboard');
+        } else {
+            return redirect('/superadmin/dashboard');
+        }
+    });
+
     // Logout
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 

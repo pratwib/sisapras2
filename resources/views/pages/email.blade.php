@@ -546,7 +546,7 @@
                                         font-size: 18px;
                                         line-height: 25.2px;
                                         color: #666666;
-                                      ">Halo (Nama Admin),</span>
+                                      ">Halo {{ $emailDetails['admin_name'] }},</span>
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%">
                                                                      
@@ -557,9 +557,9 @@
                                         line-height: 25.2px;
                                         color: #666666;
                                       ">Kami ingin memberitahu bahwa terdapat
-                                                                        pengajuan peminjaman baru di Sisapras.<br /><br />(Nama
-                                                                        Peminjam) mengajukan peminjaman (Nama
-                                                                        Barang) sejumlah (lend_quantity)
+                                                                        pengajuan peminjaman baru di Sisapras.<br /><br />{{ $emailDetails['borrower_name'] }} 
+                                                                        mengajukan peminjaman {{ $emailDetails['item_name'] }} 
+                                                                        sejumlah {{ $emailDetails['lend_quantity'] }}
                                                                         buah.</span>
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%">
