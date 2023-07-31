@@ -60,7 +60,7 @@ class BorrowController extends Controller
 
         // Email notification for admin(s)
         // Getting data needed for the email
-        $admins = User::where('location_id', $request->location_id)->get();
+        $admins = User::where('location_id', $borrowData['location_id'])->get();
         $borrowerName = User::where('user_id', $borrowData['user_id'])->first();
         $itemName = Item::where('item_id', $borrowData['item_id'])->first();
 
