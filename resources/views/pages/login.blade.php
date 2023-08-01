@@ -27,7 +27,7 @@
 
                     <!-- Logo -->
                     <div class="app-brand justify-content-center mb-4">
-                        <a href="/home" class="app-brand-link gap-2">
+                        <a href="/" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1406 1406">
                                     <g fill="#696cff">
