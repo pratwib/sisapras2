@@ -114,7 +114,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/borrow', [BorrowController::class, 'show'])->middleware('UserAccess:user')->name('borrow.user');
         Route::get('/borrow/{id}/detail', [BorrowController::class, 'show'])->middleware('UserAccess:user')->name('borrow.detail.user');
-        Route::post('/borrow/{id}/cancel', [BorrowController::class, 'canceled'])->middleware('UserAccess:user')->name('borrow.cancel');
+        Route::post('/borrow/{id}/cancel', [BorrowController::class, 'canceled'])->middleware('UserAccess:user')->name('borrow.cancel.user');
 
         Route::get('/history', [BorrowController::class, 'history'])->middleware('UserAccess:user')->name('history.user');
     });

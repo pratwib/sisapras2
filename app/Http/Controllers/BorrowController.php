@@ -24,12 +24,13 @@ class BorrowController extends Controller
             'return_date' => 'required',
             'lend_quantity' => 'required',
             'lend_detail' => 'required',
-            'lend_photo' => 'required',
+            'lend_photo' => 'required|image',
         ], [
             'return_date.required' => 'Silakan masukkan tanggal pengembalian',
             'lend_quantity.required' => 'Silakan masukkan jumlah pinjam',
             'lend_detail.required' => 'Silakan masukkan tujuan peminjaman',
             'lend_photo.required' => 'Silakan upload foto selfie kamu',
+            'lend_photo.image' => 'File yang kamu masukkan bukan foto',
         ]);
 
         $photoFile = $request->file('lend_photo');
@@ -108,6 +109,23 @@ class BorrowController extends Controller
         });
 
         $borrows = $query->get();
+
+        $today = Carbon::now()->setTimezone('Asia/Jakarta');
+        $overdueBorrow = Borrow::all();
+
+        foreach ($overdueBorrow as $borrow) {
+            // Parsing return date to a Carbon date
+            $returnDate = Carbon::parse($borrow->return_date);
+
+            // Check if today is greater than return date
+            $isOverdue = $today->gt($returnDate);
+
+            // Change lend status
+            if ($borrow->lend_status === 'borrowed' && $isOverdue) {
+                $borrow->lend_status = 'overdue';
+                $borrow->update();
+            }
+        }
 
         return view('pages.borrow', compact('user', 'borrows'));
     }
