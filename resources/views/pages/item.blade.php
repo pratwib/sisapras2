@@ -49,7 +49,7 @@
                                 <h5 class="card-title">Daftar Barang</h5>
                                 <div class="ms-auto d-flex">
 
-                                    @if($user->role === 'admin')
+                                    @if($user->role === 'admin'||$user->role === 'superadmin')
                                     <!-- Button Add modal -->
                                     <button type="button" href="#addModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><span style="white-space: nowrap;">Tambah Barang</span></button>
 
@@ -61,7 +61,7 @@
                                                     <h5 class="modal-title" id="modalTitle">Tambah Barang</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{ route('item.add') }}" method="POST">
+                                                <form action="{{ route('item.add.'. $user->role) }}" method="POST">
                                                     @csrf
                                                     <div class="modal-body">
                                                         <div class="mb-3">
@@ -77,8 +77,21 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="item_quantitiy" class="form-label">Stok</label>
-                                                            <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Masukkan stok barang" min="0" value="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null;">
+                                                            <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Masukkan stok barang" min="0" value="1">
                                                         </div>
+                                                        @if($user->role === 'superadmin')
+                                                        <div class="mb-3">
+                                                            <label for="location_id" class="form-label">Lokasi</label>
+                                                            <select class="form-select @error('location_id') is-invalid @enderror" type="text" id="location_id" name="location_id">
+                                                                @foreach(session('locations') as $location)
+                                                                <option value="{{ $location->location_id}}">{{ $location->location_name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('location_id')
+                                                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        @endif
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -193,7 +206,7 @@
                                                 </div>
                                                 @endif
 
-                                                @if($user->role === 'admin')
+                                                @if($user->role === 'admin'||$user->role === 'superadmin')
                                                 <!-- Button Edit modal -->
                                                 <button type="button" href="#editModal{{ $item->item_id }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->item_id }}">
                                                     <span class="tf-icons bx bx-edit"></span>
@@ -207,7 +220,7 @@
                                                                 <h5 class="modal-title" id="modalTitle">Edit Barang</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('item.edit', ['id' => $item->item_id]) }}" method="POST">
+                                                            <form action="{{ route('item.edit.'. $user->role, ['id' => $item->item_id]) }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
@@ -223,8 +236,21 @@
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="item_quantitiy" class="form-label">Stok</label>
-                                                                        <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Masukkan stok barang" min="0" value="{{ $item->item_quantity }}" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null;">
+                                                                        <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Masukkan stok barang" min="0" value="{{ $item->item_quantity }}">
                                                                     </div>
+                                                                    @if($user->role === 'superadmin')
+                                                                    <div class="mb-3">
+                                                                        <label for="location_id" class="form-label">Lokasi</label>
+                                                                        <select class="form-select @error('location_id') is-invalid @enderror" type="text" id="location_id" name="location_id">
+                                                                            @foreach(session('locations') as $location)
+                                                                            <option value=" {{ $location->location_id}}" @if($location->location_id === $item->location_id) selected @endif >{{ $location->location_name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        @error('location_id')
+                                                                        <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
+                                                                        @enderror
+                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -249,7 +275,7 @@
                                                             <div class="modal-header">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('item.delete', ['id' => $item->item_id]) }}" method="POST">
+                                                            <form action="{{ route('item.delete.'. $user->role, ['id' => $item->item_id]) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <div class="modal-body">

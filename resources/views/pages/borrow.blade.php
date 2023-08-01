@@ -101,7 +101,7 @@
                                                                 <h5 class="modal-title" id="modalTitle">Detail Peminjaman</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.detail', ['id' => $borrow->borrow_id]) }}" method="GET" enctype="multipart/form-data">
+                                                            <form action="{{ route('borrow.detail.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="GET" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
@@ -148,7 +148,7 @@
                                                     </div>
                                                 </div>
 
-                                                @if($user->role === 'user')
+                                                @if($user->role === 'user'&&$borrow->lend_status == 'requested')
                                                 <!-- Button Cancel Modal -->
                                                 <button type="button" href="#cancelModal{{ $borrow->borrow_id }}" class="btn btn-sm btn-icon btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#cancelModal{{ $borrow->borrow_id }}">
                                                     <span class="tf-icons bx bx-x"></span>
@@ -161,7 +161,7 @@
                                                             <div class="modal-header">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.cancel', ['id' => $borrow->borrow_id]) }}" method="POST">
+                                                            <form action="{{ route('borrow.cancel.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <input type="hidden" name="borrow_id" id="borrow_id" value="{{ $borrow->borrow_id }}">
@@ -181,7 +181,7 @@
                                                 </div>
                                                 @endif
 
-                                                @if($user->role === 'admin')
+                                                @if($user->role === 'admin'||$user->role === 'superadmin')
 
                                                 @if($borrow->lend_status === 'requested')
                                                 <!-- Button Approve Modal -->
@@ -196,7 +196,7 @@
                                                             <div class="modal-header">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.approve', ['id' => $borrow->borrow_id]) }}" method="POST">
+                                                            <form action="{{ route('borrow.approve.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <input type="hidden" name="borrow_id" id="borrow_id" value="{{ $borrow->borrow_id }}">
@@ -227,7 +227,7 @@
                                                             <div class="modal-header">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.decline', ['id' => $borrow->borrow_id]) }}" method="POST">
+                                                            <form action="{{ route('borrow.decline.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <input type="hidden" name="borrow_id" id="borrow_id" value="{{ $borrow->borrow_id }}">
@@ -251,14 +251,14 @@
                                                 <!-- Button Borrow Modal -->
                                                 <button type="button" href="#borrowModal{{ $borrow->borrow_id }}" class="btn btn-sm btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#borrowModal{{ $borrow->borrow_id }}"><span style="white-space: nowrap;">Dipinjam</span></button>
 
-                                                <!-- Approve Borrow Modal -->
+                                                <!-- Borrow Borrow Modal -->
                                                 <div class="modal fade" id="borrowModal{{ $borrow->borrow_id }}" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.borrow', ['id' => $borrow->borrow_id]) }}" method="POST">
+                                                            <form action="{{ route('borrow.borrow.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <input type="hidden" name="borrow_id" id="borrow_id" value="{{ $borrow->borrow_id }}">
@@ -282,14 +282,14 @@
                                                 <!-- Button Return Modal -->
                                                 <button type="button" href="#returnModal{{ $borrow->borrow_id }}" class="btn btn-sm btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#returnModal{{ $borrow->borrow_id }}"><span style="white-space: nowrap;">Dikembalikan</span></button>
 
-                                                <!-- Approve Borrow Modal -->
+                                                <!-- Approve Return Modal -->
                                                 <div class="modal fade" id="returnModal{{ $borrow->borrow_id }}" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.return', ['id' => $borrow->borrow_id]) }}" method="POST">
+                                                            <form action="{{ route('borrow.return.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="POST">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <input type="hidden" name="borrow_id" id="borrow_id" value="{{ $borrow->borrow_id }}">

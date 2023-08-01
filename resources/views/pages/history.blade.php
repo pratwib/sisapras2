@@ -98,7 +98,7 @@
                                                                 <h5 class="modal-title" id="modalTitle">Detail Peminjaman</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('borrow.detail', ['id' => $borrow->borrow_id]) }}" method="GET" enctype="multipart/form-data">
+                                                            <form action="{{ route('borrow.detail.'. $user->role, ['id' => $borrow->borrow_id]) }}" method="GET" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">

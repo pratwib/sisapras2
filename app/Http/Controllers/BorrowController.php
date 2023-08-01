@@ -24,13 +24,12 @@ class BorrowController extends Controller
             'return_date' => 'required',
             'lend_quantity' => 'required',
             'lend_detail' => 'required',
-            'lend_photo' => 'required|image',
+            'lend_photo' => 'required',
         ], [
             'return_date.required' => 'Silakan masukkan tanggal pengembalian',
             'lend_quantity.required' => 'Silakan masukkan jumlah pinjam',
             'lend_detail.required' => 'Silakan masukkan tujuan peminjaman',
             'lend_photo.required' => 'Silakan upload foto selfie kamu',
-            'lend_photo.image' => 'File yang dimasukkan bukan foto',
         ]);
 
         $photoFile = $request->file('lend_photo');
@@ -83,92 +82,62 @@ class BorrowController extends Controller
     }
 
     // Show list of ongoing borrow that a user make
-    public function showUser(): View
+    public function show(): View
     {
         $user = Auth::user();
         $userId = $user->user_id;
+        $adminLocation = $user->location_id;
 
-        $borrows = DB::table('locations')
+        $query = DB::table('locations')
             ->join('borrows', 'locations.location_id', '=', 'borrows.location_id')
             ->join('users', 'borrows.user_id', '=', 'users.user_id')
             ->join('items', 'borrows.item_id', '=', 'items.item_id')
-            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name')
-            ->where('users.user_id', $userId)
-            ->where(function (Builder $query) {
-                $query->orWhere('borrows.lend_status', 'requested')
-                    ->orWhere('borrows.lend_status', 'approved')
-                    ->orWhere('borrows.lend_status', 'borrowed')
-                    ->orWhere('borrows.lend_status', 'overdue');
-            })
-            ->get();
+            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name');
+
+        if ($user->role == 'user') {
+            $query->where('users.user_id', $userId);
+        } elseif ($user->role == 'admin') {
+            $query->where('borrows.location_id', $adminLocation);
+        }
+
+        $query->where(function (Builder $query) {
+            $query->orWhere('borrows.lend_status', 'requested')
+                ->orWhere('borrows.lend_status', 'approved')
+                ->orWhere('borrows.lend_status', 'borrowed')
+                ->orWhere('borrows.lend_status', 'overdue');
+        });
+
+        $borrows = $query->get();
 
         return view('pages.borrow', compact('user', 'borrows'));
     }
 
-
-    // Show list of borrow to be approved by admin based on admin location
-    public function showAdmin(): View
-    {
-        $user = Auth::user();
-        $adminLocation = $user->location_id;
-
-        $borrows = DB::table('locations')
-            ->join('borrows', 'locations.location_id', '=', 'borrows.location_id')
-            ->join('users', 'borrows.user_id', '=', 'users.user_id')
-            ->join('items', 'borrows.item_id', '=', 'items.item_id')
-            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name')
-            ->where('borrows.location_id', $adminLocation)
-            ->where(function (Builder $query) {
-                $query->orWhere('borrows.lend_status', 'requested')
-                    ->orWhere('borrows.lend_status', 'approved')
-                    ->orWhere('borrows.lend_status', 'borrowed')
-                    ->orWhere('borrows.lend_status', 'overdue');
-            })
-            ->get();
-
-        return view('pages.borrow', compact('user', 'borrows'));
-    }
-
-    // Show user borrow history and declined borrow request
-    public function historyUser(): View
+    // Show user borrow history
+    public function history(): View
     {
         $user = Auth::user();
         $userId = $user->user_id;
-
-        $borrows = DB::table('locations')
-            ->join('borrows', 'locations.location_id', '=', 'borrows.location_id')
-            ->join('users', 'borrows.user_id', '=', 'users.user_id')
-            ->join('items', 'borrows.item_id', '=', 'items.item_id')
-            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name')
-            ->where('users.user_id', $userId)
-            ->where(function (Builder $query) {
-                $query->orWhere('borrows.lend_status', 'declined')
-                    ->orWhere('borrows.lend_status', 'canceled')
-                    ->orWhere('borrows.lend_status', 'returned');
-            })
-            ->get();
-
-
-        return view('pages.history', compact('user', 'borrows'));
-    }
-
-    public function historyAdmin(): View
-    {
-        $user = Auth::user();
         $adminLocation = $user->location_id;
 
-        $borrows = DB::table('locations')
+        $query = DB::table('locations')
             ->join('borrows', 'locations.location_id', '=', 'borrows.location_id')
             ->join('users', 'borrows.user_id', '=', 'users.user_id')
             ->join('items', 'borrows.item_id', '=', 'items.item_id')
-            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name')
-            ->where('borrows.location_id', $adminLocation)
-            ->where(function (Builder $query) {
-                $query->orWhere('borrows.lend_status', 'declined')
-                    ->orWhere('borrows.lend_status', 'canceled')
-                    ->orWhere('borrows.lend_status', 'returned');
-            })
-            ->get();
+            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name');
+
+        if ($user->role == 'user') {
+            $query->where('users.user_id', $userId);
+        } elseif ($user->role == 'admin') {
+            $query->where('borrows.location_id', $adminLocation);
+        }
+
+        $query->where(function (Builder $query) {
+            $query->orWhere('borrows.lend_status', 'declined')
+                ->orWhere('borrows.lend_status', 'canceled')
+                ->orWhere('borrows.lend_status', 'returned');
+        });
+
+        $borrows = $query->get();
 
 
         return view('pages.history', compact('user', 'borrows'));

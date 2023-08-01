@@ -66,6 +66,20 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/admin/add', [UserController::class, 'createAdmin'])->middleware('UserAccess:superadmin')->name('admin.add');
         Route::post('/admin/{id}/edit', [UserController::class, 'updateAdmin'])->middleware('UserAccess:superadmin')->name('admin.edit');
         Route::delete('/admin/{id}/delete', [UserController::class, 'deleteAdmin'])->middleware('UserAccess:superadmin')->name('admin.delete');
+
+        Route::get('/item', [ItemController::class, 'showAll'])->middleware('UserAccess:superadmin')->name('item.superadmin');
+        Route::post('/item/add', [ItemController::class, 'create'])->middleware('UserAccess:superadmin')->name('item.add.superadmin');
+        Route::post('/item/{id}/edit', [ItemController::class, 'update'])->middleware('UserAccess:superadmin')->name('item.edit.superadmin');
+        Route::delete('/item/{id}/delete', [ItemController::class, 'delete'])->middleware('UserAccess:superadmin')->name('item.delete.superadmin');
+
+        Route::get('/borrow', [BorrowController::class, 'show'])->middleware('UserAccess:superadmin')->name('borrow.superadmin');
+        Route::get('/borrow/{id}/detail', [BorrowController::class, 'show'])->middleware('UserAccess:superadmin')->name('borrow.detail.superadmin');
+        Route::post('/borrow/{id}/approve', [BorrowController::class, 'approved'])->middleware('UserAccess:superadmin')->name('borrow.approve.superadmin');
+        Route::post('/borrow/{id}/decline', [BorrowController::class, 'declined'])->middleware('UserAccess:superadmin')->name('borrow.decline.superadmin');
+        Route::post('/borrow/{id}/borrow', [BorrowController::class, 'borrowed'])->middleware('UserAccess:superadmin')->name('borrow.borrow.superadmin');
+        Route::post('/borrow/{id}/return', [BorrowController::class, 'returned'])->middleware('UserAccess:superadmin')->name('borrow.return.superadmin');
+
+        Route::get('/history', [BorrowController::class, 'history'])->middleware('UserAccess:superadmin')->name('history.superadmin');
     });
 
     Route::prefix('admin')->group(function () {
@@ -75,17 +89,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/profile/{id}/edit', [UserController::class, 'updateProfile'])->middleware('UserAccess:admin')->name('profile.edit.admin');
 
         Route::get('/item', [ItemController::class, 'showByLocation'])->middleware('UserAccess:admin')->name('item.admin');
-        Route::post('/item/add', [ItemController::class, 'create'])->middleware('UserAccess:admin')->name('item.add');
-        Route::post('/item/{id}/edit', [ItemController::class, 'update'])->middleware('UserAccess:admin')->name('item.edit');
-        Route::delete('/item/{id}/delete', [ItemController::class, 'delete'])->middleware('UserAccess:admin')->name('item.delete');
+        Route::post('/item/add', [ItemController::class, 'create'])->middleware('UserAccess:admin')->name('item.add.admin');
+        Route::post('/item/{id}/edit', [ItemController::class, 'update'])->middleware('UserAccess:admin')->name('item.edit.admin');
+        Route::delete('/item/{id}/delete', [ItemController::class, 'delete'])->middleware('UserAccess:admin')->name('item.delete.admin');
 
-        Route::get('/borrow', [BorrowController::class, 'showAdmin'])->middleware('UserAccess:admin')->name('borrow.admin');
-        Route::post('/borrow/{id}/approve', [BorrowController::class, 'approved'])->middleware('UserAccess:admin')->name('borrow.approve');
-        Route::post('/borrow/{id}/decline', [BorrowController::class, 'declined'])->middleware('UserAccess:admin')->name('borrow.decline');
-        Route::post('/borrow/{id}/borrow', [BorrowController::class, 'borrowed'])->middleware('UserAccess:admin')->name('borrow.borrow');
-        Route::post('/borrow/{id}/return', [BorrowController::class, 'returned'])->middleware('UserAccess:admin')->name('borrow.return');
+        Route::get('/borrow', [BorrowController::class, 'show'])->middleware('UserAccess:admin')->name('borrow.admin');
+        Route::get('/borrow/{id}/detail', [BorrowController::class, 'show'])->middleware('UserAccess:admin')->name('borrow.detail.admin');
+        Route::post('/borrow/{id}/approve', [BorrowController::class, 'approved'])->middleware('UserAccess:admin')->name('borrow.approve.admin');
+        Route::post('/borrow/{id}/decline', [BorrowController::class, 'declined'])->middleware('UserAccess:admin')->name('borrow.decline.admin');
+        Route::post('/borrow/{id}/borrow', [BorrowController::class, 'borrowed'])->middleware('UserAccess:admin')->name('borrow.borrow.admin');
+        Route::post('/borrow/{id}/return', [BorrowController::class, 'returned'])->middleware('UserAccess:admin')->name('borrow.return.admin');
 
-        Route::get('/history', [BorrowController::class, 'historyAdmin'])->middleware('UserAccess:admin')->name('history.admin');
+        Route::get('/history', [BorrowController::class, 'history'])->middleware('UserAccess:admin')->name('history.admin');
     });
 
     Route::prefix('user')->group(function () {
@@ -97,10 +112,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/item', [ItemController::class, 'showAll'])->middleware('UserAccess:user')->name('item.user');
         Route::post('/item/{id}/borrow', [BorrowController::class, 'borrow'])->middleware('UserAccess:user')->name('item.borrow');
 
-        Route::get('/borrow', [BorrowController::class, 'showUser'])->middleware('UserAccess:user')->name('borrow.user');
-        Route::get('/borrow/{id}/detail', [BorrowController::class, 'showUser'])->middleware('UserAccess:user')->name('borrow.detail');
+        Route::get('/borrow', [BorrowController::class, 'show'])->middleware('UserAccess:user')->name('borrow.user');
+        Route::get('/borrow/{id}/detail', [BorrowController::class, 'show'])->middleware('UserAccess:user')->name('borrow.detail.user');
         Route::post('/borrow/{id}/cancel', [BorrowController::class, 'canceled'])->middleware('UserAccess:user')->name('borrow.cancel');
 
-        Route::get('/history', [BorrowController::class, 'historyUser'])->middleware('UserAccess:user')->name('history.user');
+        Route::get('/history', [BorrowController::class, 'history'])->middleware('UserAccess:user')->name('history.user');
     });
 });

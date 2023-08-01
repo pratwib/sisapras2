@@ -63,7 +63,7 @@ class ItemController extends Controller
         ]);
 
         $newItem = [
-            'location_id' => $itemLocationId,
+            'location_id' => $itemLocationId === null ? $request->location_id : $itemLocationId,
             'item_name' => $request->item_name,
             'item_desc' => $request->item_desc,
             'item_quantity' => $request->item_quantity,
@@ -89,6 +89,9 @@ class ItemController extends Controller
             'item_name.required' => 'Silakan masukkan nama barang'
         ]);
 
+        if (isset($request->location_id)) {
+            $item->location_id = $request->location_id;
+        }
         $item->item_name = $request->item_name;
         $item->item_desc = $request->item_desc;
         $item->item_quantity = $request->item_quantity;

@@ -66,7 +66,6 @@
         </li>
         @endif
 
-        @if($user->role === 'user' || $user->role === 'admin')
         <li class="menu-item @if(\Request::is($user->role . '/item')) active @endif">
             <a href="{{ route('item.'. $user->role) }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-package"></i>
@@ -87,7 +86,6 @@
                 <div data-i18n="History">Riwayat Peminjaman</div>
             </a>
         </li>
-        @endif
 
         <li class="menu-item">
             <a href="#" class="menu-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
