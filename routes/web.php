@@ -22,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/home', function () {
+    Route::get('/', function () {
         return view('pages.home');
     })->name('home');
 
-    Route::redirect('/', '/home');
+    // Route::redirect('/', '/home');
 
     // Login routes
     Route::get('/login', [LoginController::class, 'show'])->name('login');
