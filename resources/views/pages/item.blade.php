@@ -219,7 +219,7 @@
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="item_desc" class="form-label">Deskripsi</label>
-                                                                        <textarea type="text" class="form-control" id="item_desc" name="item_desc" placeholder="Masukkan deskripsi barang" rows="3" value="{{ $item->item_desc }}"></textarea>
+                                                                        <textarea type="text" class="form-control" id="item_desc" name="item_desc" placeholder="Masukkan deskripsi barang" rows="3" value="{{ $item->item_desc }}">{{ $item->item_desc }}</textarea>
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label for="item_quantitiy" class="form-label">Stok</label>

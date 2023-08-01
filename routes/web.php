@@ -26,6 +26,8 @@ Route::middleware(['guest'])->group(function () {
         return view('pages.home');
     })->name('home');
 
+    Route::redirect('/', '/home');
+
     // Login routes
     Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.post');
