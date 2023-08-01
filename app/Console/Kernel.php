@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             // get all the borrow that have not been returned and have exceeded due date
             $overdueBorrow = DB::table('borrows')
-                ->where('lend_status', '!=', 'returned')
+                ->where('lend_status', '=', 'borrowed')
                 ->where('return_date', '<', Carbon::now())
                 ->get();
 
