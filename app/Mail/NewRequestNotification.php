@@ -30,7 +30,6 @@ class NewRequestNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('', ''),
             subject: 'Pengajuan Peminjaman',
         );
     }

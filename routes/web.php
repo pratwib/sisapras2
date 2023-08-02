@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ForgotController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
@@ -39,12 +40,10 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
     // Forgot password routes
-    Route::get('/forgot-password', [ForgotController::class, 'show'])->name('forgot');
-    Route::post('/forgot-passwod', [ForgotController::class, 'forgot'])->name('forgot.post');
-
-    // Reset password routes
-    Route::get('/reset-password/{token}', [ResetController::class, 'show'])->name('reset');
-    Route::post('/reset-password', [ResetController::class, 'reset'])->name('reset.post');
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgot'])->name('forgot');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'email'])->name('forgot.post');
+    Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showReset'])->name('password.reset');
+    Route::post('/reset-password', [ForgotPasswordController::class, 'updatePassword'])->name('reset.post');
 });
 
 Route::middleware(['auth'])->group(function () {

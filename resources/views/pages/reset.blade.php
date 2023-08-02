@@ -64,11 +64,7 @@
                     <form class="mb-3" action="{{ route('reset.post') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ old('email') }}">
-                            @error('email')
-                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                            @enderror
+                            <input type="hidden" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ request()->email }}">
                         </div>
                         <div class="mb-3 form-password-toggle">
                             <label class="form-label" for="password">Password</label>
@@ -83,13 +79,14 @@
                         <div class="mb-5 form-password-toggle">
                             <label class="form-label" for="comfirm_password">Konfirmasi Password</label>
                             <div class="input-group input-group-merge">
-                                <input type="password" class="form-control" id="comfirm_password" name="comfirm_password" placeholder="Konfirmasi password">
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi password">
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                             @error('password')
                             <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                             @enderror
                         </div>
+                        <input type="hidden" name="token" value="{{ request()->token }}">
                         <div class="mb-0">
                             <button class="btn btn-primary w-100" type="submit">Reset Password</button>
                         </div>
