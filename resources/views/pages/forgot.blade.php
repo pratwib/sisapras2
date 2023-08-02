@@ -23,7 +23,6 @@
 
         <div class="authentication-wrapper authentication-basic container-p-y">
 
-            <!-- Register -->
             <div class="card" style="min-width: 400px;">
                 <div class="card-body">
 
@@ -57,7 +56,7 @@
                     </div>
                     <!-- /Logo -->
 
-                    <!-- Login Form -->
+                    <!-- Email Form -->
                     @if ($errors->first('0'))
                     <div class="mb-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $errors->first('0') }}</div>
                     @endif
@@ -65,7 +64,7 @@
                         @csrf
                         <div class="mb-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ old('email') }}">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ old('email') }}" autofocus>
                             @error('email')
                             <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                             @enderror
@@ -82,7 +81,6 @@
                         </a>
                     </div>
                 </div>
-                <!-- /Register -->
             </div>
         </div>
         <!-- / Content -->

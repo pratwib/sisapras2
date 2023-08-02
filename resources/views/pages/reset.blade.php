@@ -23,7 +23,6 @@
 
         <div class="authentication-wrapper authentication-basic container-p-y">
 
-            <!-- Register -->
             <div class="card" style="min-width: 400px;">
                 <div class="card-body">
 
@@ -57,7 +56,7 @@
                     </div>
                     <!-- /Logo -->
 
-                    <!-- Login Form -->
+                    <!-- Reset Form -->
                     @if ($errors->first('0'))
                     <div class="mb-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $errors->first('0') }}</div>
                     @endif
@@ -69,7 +68,7 @@
                         <div class="mb-3 form-password-toggle">
                             <label class="form-label" for="password">Password</label>
                             <div class="input-group input-group-merge">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" autofocus>
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                             @error('password')
@@ -92,7 +91,6 @@
                         </div>
                     </form>
                 </div>
-                <!-- /Register -->
             </div>
         </div>
         <!-- / Content -->

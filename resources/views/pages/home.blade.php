@@ -63,7 +63,7 @@
                     <h2 class="text-white mt-0">SOP & PANDUAN</h2>
                     <hr class="divider divider-light" />
                     <p class="text-white-75 mb-4">Terdapat beberapa hal yang harus diperhatikan saat melakukan peminjaman<br>Silakan klik tombol dibawah ini untuk mengunduh berkas</p>
-                    <a class="btn btn-light btn-xl" href="">Unduh</a>
+                    <a class="btn btn-light btn-xl" href="{{ route('home.sop') }}">Unduh</a>
                 </div>
             </div>
         </div>
@@ -178,14 +178,14 @@
                     <div class="mt-5">
                         <div class="mb-2"><i class="bx bxl-whatsapp fs-1 text-primary"></i></div>
                         <h4 class=" h4 mb-3">Whatsapp</h4>
-                        <p class="text-muted mb-0">082123456789</p>
+                        <a class="text-muted mb-0" href="https://wa.me/6285800115790">085800115790</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="mt-5">
                         <div class="mb-2"><i class="bx bx-envelope fs-1 text-primary"></i></div>
                         <h4 class="h4 mb-3">Email</h4>
-                        <p class="text-muted mb-0">ftsapras@gmail.com</p>
+                        <p class="text-muted mb-0">ftsarpras@gmail.com</p>
                     </div>
                 </div>
             </div>
