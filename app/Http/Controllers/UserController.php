@@ -20,25 +20,8 @@ class UserController extends Controller
         // For Admin Profile
         $location_id = $user->location_id;
         $location = Location::where('location_id', $location_id)->first();
-        $departments = [
-            'Bukan Mahasiswa FT Undip',
-            'Arsitektur',
-            'Perencanaan Wilayah dan Kota',
-            'Teknik Elektro',
-            'Teknik Geodesi',
-            'Teknik Geologi',
-            'Teknik Industri',
-            'Teknik Kimia',
-            'Teknik Komputer',
-            'Teknik Lingkungan',
-            'Teknik Mesin',
-            'Teknik Perkapalan',
-            'Teknik Sipil',
-        ];
 
-        session()->flash('departments', $departments);
-
-        return view('pages.profile', compact('user', 'location', 'departments'));
+        return view('pages.profile', compact('user', 'location'));
     }
 
     // Edit user profile
@@ -46,15 +29,15 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $request->validate([
+        $rules = [
             'name' => 'required',
             'hp_number' => ['required', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
             'username' => 'required|unique:users,username,' . $user->user_id . ',user_id',
             'email' => 'required|unique:users,email,' . $user->user_id . ',user_id|email',
             'password' => 'required_if:role,user|min:8',
-            'reg_number' => 'nullable|unique:users,reg_number,' . $user->user_id . ',user_id',
-        ], [
-            'reg_number.unique' => 'NIM atau NIP sudah terdaftar',
+        ];
+
+        $messages = [
             'name.required' => 'Silakan masukkan nama Kamu',
             'hp_number.required' => 'Silakan masukkan nomor hp Kamu',
             'hp_number.regex' => 'Silakan masukkan nomor telepon yang valid',
@@ -65,7 +48,19 @@ class UserController extends Controller
             'email.email' => 'Silakan masukkan email yang valid',
             'password.required_if' => 'Silakan masukkan password Kamu',
             'password.min' => 'Password harus terdiri dari setidaknya 8 karakter',
-        ]);
+        ];
+
+        if (Auth::user()->role == 'user') {
+            // Only apply validation reg_number and department if the role user
+            $rules['department'] = 'required';
+            $rules['reg_number'] = 'required|unique:users,reg_number,' . $user->user_id . ',user_id';
+
+            $messages['department.required'] = 'Silakan masukkan departemen Kamu';
+            $messages['reg_number.unique'] = 'NIM atau NIP sudah terdaftar';
+            $messages['reg_number.required'] = 'Silakan masukkan  NIM atau NIP Kamu';
+        }
+
+        $request->validate($rules, $messages);
 
         $user->name = $request->name;
         $user->hp_number = $request->hp_number;

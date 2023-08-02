@@ -25,6 +25,8 @@ class RegisterController extends Controller
             'username' => 'required|unique:users,username',
             'email' => 'required|unique:users,email|email',
             'password' => 'required|min:8',
+            'reg_number' => 'required|unique:users,reg_number',
+            'department' => 'required',
         ], [
             'name.required' => 'Silakan masukkan nama Kamu',
             'hp_number.required' => 'Silakan masukkan nomor hp Kamu',
@@ -36,6 +38,9 @@ class RegisterController extends Controller
             'email.email' => 'Silakan masukkan email yang valid',
             'password.required' => 'Silakan masukkan password Kamu',
             'password.min' => 'Password harus terdiri dari setidaknya 8 karakter',
+            'reg_number.required' => 'Silakan masukkan  NIM atau NIP Kamu',
+            'reg_number.unique' => 'NIM atau NIP sudah terdaftar',
+            'department.required' => 'Silakan masukkan departemen Kamu',
         ]);
 
         $registerCredential = [
@@ -43,6 +48,8 @@ class RegisterController extends Controller
             'hp_number' => $request->hp_number,
             'username' => $request->username,
             'email' => $request->email,
+            'reg_number' => $request->reg_number,
+            'department' => $request->department,
             'password' => Hash::make($request->password),
         ];
 

@@ -56,6 +56,7 @@
                                         @endif
                                     </span>
                                     <div class="d-flex ms-auto">
+
                                         <button type="button" href="#editModal{{ $user->user_id }}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->user_id }}">Edit Profile</button>
 
                                         <!-- Edit Profile Modal -->
@@ -84,16 +85,16 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="hp_number" class="form-label">Nomor HP</label>
-                                                                <input type="tel" class="form-control @error('hp_number') is-invalid @enderror" id="hp_number" name="hp_number" placeholder="Masukkan nomor hp" value="{{ $user->hp_number }}">
-                                                                @error('hp_number')
+                                                                <label for="email" class="form-label">Email</label>
+                                                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ $user->email }}">
+                                                                @error('email')
                                                                 <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="email" class="form-label">Email</label>
-                                                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ $user->email }}">
-                                                                @error('email')
+                                                                <label for="hp_number" class="form-label">Nomor HP</label>
+                                                                <input type="tel" class="form-control @error('hp_number') is-invalid @enderror" id="hp_number" name="hp_number" placeholder="Masukkan nomor hp" value="{{ $user->hp_number }}">
+                                                                @error('hp_number')
                                                                 <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
@@ -119,11 +120,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="department" class="form-label">Departemen / Jurusan</label>
-                                                                <select class="form-select @error('department') is-invalid @enderror" type="text" id="department" name="department">
-                                                                    @foreach($departments as $department)
-                                                                    <option value="{{ $department }}" @if($department===$user->department) selected @endif >{{ $department }}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <input type="text" class="form-control @error('department') is-invalid @enderror" id="department" name="department" placeholder="Masukkan departemen atau jurusan" value="{{ $user->department }}">
                                                                 @error('department')
                                                                 <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                                                                 @enderror
@@ -157,12 +154,12 @@
                                             <input type="text" class="form-control-plaintext" id="username" value="{{ $user->username }}" />
                                         </div>
                                         <div class="mb-3 col-md">
-                                            <label class="mb-0 form-label" for="hp_number">Nomor HP</label>
-                                            <input type="tel" id="hp_number" class="form-control-plaintext" value="{{ $user->hp_number }}" />
-                                        </div>
-                                        <div class="mb-3 col-md">
                                             <label for="email" class="mb-0 form-label">Email</label>
                                             <input class="form-control-plaintext" type="email" id="email" value="{{ $user->email }}" />
+                                        </div>
+                                        <div class="mb-3 col-md">
+                                            <label class="mb-0 form-label" for="hp_number">Nomor HP</label>
+                                            <input type="tel" id="hp_number" class="form-control-plaintext" value="{{ $user->hp_number }}" />
                                         </div>
                                         @if($user->role === 'user')
                                         <div class="mb-3 col-md">

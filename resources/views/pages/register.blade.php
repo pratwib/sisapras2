@@ -77,6 +77,20 @@
                             <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="reg_number" class="form-label">NIM / NIP</label>
+                            <input type="text" class="form-control @error('reg_number') is-invalid @enderror" id="reg_number" name="reg_number" placeholder="Masukkan NIM / NIP" value="{{ old('reg_number') }}">
+                            @error('reg_number')
+                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Departemen / Jurusan</label>
+                            <input type="text" class="form-control @error('department') is-invalid @enderror" id="department" name="department" placeholder="Masukkan departemen atau jurusan" value="{{ old('department') }}">
+                            @error('department')
+                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="mb-5 form-password-toggle">
                             <label class="form-label" for="password">Password</label>
                             <div class="input-group input-group-merge">
