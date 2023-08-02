@@ -78,13 +78,6 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="username" class="form-label">Username</label>
-                                                                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Masukkan username" value="{{ $user->username }}">
-                                                                @error('username')
-                                                                <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="mb-3">
                                                                 <label for="email" class="form-label">Email</label>
                                                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ $user->email }}">
                                                                 @error('email')
@@ -148,10 +141,6 @@
                                         <div class="mb-3 col-md">
                                             <label for="name" class="mb-0 form-label">Nama</label>
                                             <input class="form-control-plaintext" type="text" id="name" value="{{ $user->name }}" />
-                                        </div>
-                                        <div class="mb-3 col-md">
-                                            <label for="username" class="mb-0 form-label">Username</label>
-                                            <input type="text" class="form-control-plaintext" id="username" value="{{ $user->username }}" />
                                         </div>
                                         <div class="mb-3 col-md">
                                             <label for="email" class="mb-0 form-label">Email</label>

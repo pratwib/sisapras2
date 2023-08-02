@@ -19,15 +19,16 @@ class LoginController extends Controller
     public function login(Request $request): RedirectResponse
     {
         $request->validate([
-            'username' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ], [
-            'username.required' => 'Silakan masukkan username Kamu',
+            'email.email' => 'Silakan masukkan email yang valid',
+            'email.required' => 'Silakan masukkan email Kamu',
             'password.required' => 'Silakan masukkan password Kamu',
         ]);
 
         $loginCredential = [
-            'username' => $request->username,
+            'email' => $request->email,
             'password' => $request->password,
         ];
 
@@ -42,7 +43,7 @@ class LoginController extends Controller
                 return redirect('superadmin/dashboard');
             }
         } else {
-            return redirect('/login')->withErrors('Username atau password yang dimasukkan salah')->withInput();
+            return redirect('/login')->withErrors('Email atau password yang dimasukkan salah')->withInput();
         }
     }
 

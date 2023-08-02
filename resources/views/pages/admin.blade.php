@@ -73,13 +73,6 @@
                                                             @enderror
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="username" class="form-label">Username</label>
-                                                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Masukkan username" value="{{ old('username') }}">
-                                                            @error('username')
-                                                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="mb-3">
                                                             <label for="hp_number" class="form-label">Nomor HP</label>
                                                             <input type="tel" class="form-control @error('hp_number') is-invalid @enderror" id="hp_number" name="hp_number" placeholder="Masukkan nomor hp" value="{{ old('hp_number') }}">
                                                             @error('hp_number')
@@ -168,13 +161,6 @@
                                                                         <label for="name" class="form-label">Nama</label>
                                                                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Masukkan nama" value="{{ $admin->name }}" autofocus>
                                                                         @error('name')
-                                                                        <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="username" class="form-label">Username</label>
-                                                                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Masukkan username" value="{{ $admin->username }}">
-                                                                        @error('username')
                                                                         <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                                                                         @enderror
                                                                     </div>

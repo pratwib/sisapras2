@@ -32,7 +32,6 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'hp_number' => ['required', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
-            'username' => 'required|unique:users,username,' . $user->user_id . ',user_id',
             'email' => 'required|unique:users,email,' . $user->user_id . ',user_id|email',
             'password' => 'required_if:role,user|min:8',
         ];
@@ -41,8 +40,6 @@ class UserController extends Controller
             'name.required' => 'Silakan masukkan nama Kamu',
             'hp_number.required' => 'Silakan masukkan nomor hp Kamu',
             'hp_number.regex' => 'Silakan masukkan nomor telepon yang valid',
-            'username.required' => 'Silakan masukkan username Kamu',
-            'username.unique' => 'Username sudah digunakan',
             'email.required' => 'Silakan masukkan email Kamu',
             'email.unique' => 'Alamat email sudah terdaftar',
             'email.email' => 'Silakan masukkan email yang valid',
@@ -64,7 +61,6 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->hp_number = $request->hp_number;
-        $user->username = $request->username;
         $user->email = $request->email;
         $user->reg_number = $request->reg_number;
         $user->department = $request->department;
@@ -111,7 +107,6 @@ class UserController extends Controller
             'location_id' => 'required',
             'name' => 'required',
             'hp_number' => ['required', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
-            'username' => 'required|unique:users,username',
             'email' => 'required|unique:users,email|email',
             'password' => 'required|min:8',
         ], [
@@ -119,8 +114,6 @@ class UserController extends Controller
             'name.required' => 'Silakan masukkan nama Kamu',
             'hp_number.required' => 'Silakan masukkan nomor hp Kamu',
             'hp_number.regex' => 'Silakan masukkan nomor telepon yang valid',
-            'username.required' => 'Silakan masukkan username Kamu',
-            'username.unique' => 'Username sudah digunakan',
             'email.required' => 'Silakan masukkan email Kamu',
             'email.unique' => 'Alamat email sudah terdaftar',
             'email.email' => 'Silakan masukkan email yang valid',
@@ -131,7 +124,6 @@ class UserController extends Controller
         $newAdmin = [
             'name' => $request->name,
             'location_id' => $request->location_id,
-            'username' => $request->username,
             'hp_number' => $request->hp_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -154,7 +146,6 @@ class UserController extends Controller
             'location_id' => 'required',
             'name' => 'required',
             'hp_number' => ['required', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
-            'username' => 'required|unique:users,username,' . $admin->user_id . ',user_id',
             'email' => 'required|unique:users,email,' . $admin->user_id . ',user_id|email',
             'password' => 'required|min:8',
         ], [
@@ -162,8 +153,6 @@ class UserController extends Controller
             'name.required' => 'Silakan masukkan nama Kamu',
             'hp_number.required' => 'Silakan masukkan nomor hp Kamu',
             'hp_number.regex' => 'Silakan masukkan nomor telepon yang valid',
-            'username.required' => 'Silakan masukkan username Kamu',
-            'username.unique' => 'Username sudah digunakan',
             'email.required' => 'Silakan masukkan email Kamu',
             'email.unique' => 'Alamat email sudah terdaftar',
             'email.email' => 'Silakan masukkan email yang valid',
@@ -175,13 +164,11 @@ class UserController extends Controller
             $admin->name = $request->name;
             $admin->hp_number = $request->hp_number;
             $admin->location_id = $request->location_id;
-            $admin->username = $request->username;
             $admin->email = $request->email;
         } else {
             $admin->name = $request->name;
             $admin->hp_number = $request->hp_number;
             $admin->location_id = $request->location_id;
-            $admin->username = $request->username;
             $admin->email = $request->email;
             $admin->password = Hash::make($request->password);
         }
