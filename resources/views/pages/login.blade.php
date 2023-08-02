@@ -2,6 +2,8 @@
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 
+<title>Login</title>
+
 @include('partials.head')
 
 <body>
@@ -78,20 +80,23 @@
                             <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <button class="btn btn-primary w-100" type="submit">Log In</button>
                         </div>
                     </form>
 
-                    <p class="mb-1 text-center">
+                    <p class="mb-2 text-center">
                         <span>Kamu belum punya akun?</span>
                         <a href="{{ route('register') }}">
                             <span>Register</span>
                         </a>
                     </p>
 
-                    <p class="mb-1 text-center">
-                        <span>Lupa Password? Silakan hubungi <strong>082123456789</strong></span>
+                    <p class="mb-0 text-center">
+                        <span>Lupa password kamu? Silakan lakukan</span>
+                        <a href="{{ route('forgot') }}">
+                            <span>Reset Password</span>
+                        </a>
                     </p>
                 </div>
             </div>

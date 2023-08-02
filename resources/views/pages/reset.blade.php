@@ -2,7 +2,7 @@
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 
-<title>Register</title>
+<title>Reset Password</title>
 
 @include('partials.head')
 
@@ -10,11 +10,22 @@
 
     <!-- Content -->
     <div class="container-xxl">
+        @if (session()->has('message'))
+        <div class="bs-toast toast fade show toast-placement-ex bg-primary top-0 start-50 translate-middle-x m-3" role=" alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bx bx-bell me-2"></i>
+                <div class="me-auto fw-semibold">Sisapras</div>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">{{ session()->get('message') }}</div>
+        </div>
+        @endif
+
         <div class="authentication-wrapper authentication-basic container-p-y">
 
-            <!-- Register Card -->
-            <div class="card" style="min-width: 480px;">
-                <div class=" card-body">
+            <!-- Register -->
+            <div class="card" style="min-width: 400px;">
+                <div class="card-body">
 
                     <!-- Logo -->
                     <div class="app-brand justify-content-center mb-4">
@@ -46,23 +57,12 @@
                     </div>
                     <!-- /Logo -->
 
-                    <!-- Register Form -->
-                    <form class="mb-3" action="" method="post">
+                    <!-- Login Form -->
+                    @if ($errors->first('0'))
+                    <div class="mb-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $errors->first('0') }}</div>
+                    @endif
+                    <form class="mb-3" action="{{ route('reset.post') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Masukkan nama" value="{{ old('name') }}" autofocus>
-                            @error('name')
-                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Masukkan username" value="{{ old('username') }}">
-                            @error('username')
-                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                            @enderror
-                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Masukkan email" value="{{ old('email') }}">
@@ -70,41 +70,37 @@
                             <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="hp_number" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control @error('hp_number') is-invalid @enderror" id="hp_number" name="hp_number" placeholder="Masukkan nomor hp" value="{{ old('hp_number') }}">
-                            @error('hp_number')
-                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-5 form-password-toggle">
+                        <div class="mb-3 form-password-toggle">
                             <label class="form-label" for="password">Password</label>
                             <div class="input-group input-group-merge">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Masukkan password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                             @error('password')
                             <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mb-4">
-                            <button class="btn btn-primary w-100" type="submit">Sign Up</button>
+                        <div class="mb-5 form-password-toggle">
+                            <label class="form-label" for="comfirm_password">Konfirmasi Password</label>
+                            <div class="input-group input-group-merge">
+                                <input type="password" class="form-control" id="comfirm_password" name="comfirm_password" placeholder="Konfirmasi password">
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            </div>
+                            @error('password')
+                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-0">
+                            <button class="btn btn-primary w-100" type="submit">Reset Password</button>
                         </div>
                     </form>
-
-                    <p class="mb-0 text-center">
-                        <span>Kamu sudah punya akun?</span>
-                        <a href="{{ route('login') }}">
-                            <span>Login</span>
-                        </a>
-                    </p>
                 </div>
+                <!-- /Register -->
             </div>
-            <!-- Register Card -->
         </div>
-    </div>
-    <!-- / Content -->
-    @include('partials.script')
+        <!-- / Content -->
+
+        @include('partials.script')
 
 </body>
 

@@ -73,7 +73,7 @@ class BorrowController extends Controller
                 'lend_quantity' => $borrowData['lend_quantity'],
             ];
             // Send email
-            Mail::to($value['email'])->send(new NewRequestNotification($emailDetails));
+            // Mail::to($value['email'])->send(new NewRequestNotification($emailDetails));
         }
 
         session()->flash('message', 'Peminjaman barang ' . $item->item_name . ' berhasil ditambahkan. Silakan menunggu proses pengajuan maksimal 1 hari kerja.');

@@ -557,8 +557,8 @@
                                         line-height: 25.2px;
                                         color: #666666;
                                       ">Kami ingin memberitahu bahwa terdapat
-                                                                        pengajuan peminjaman baru di Sisapras.<br /><br />{{ $emailDetails['borrower_name'] }} 
-                                                                        mengajukan peminjaman {{ $emailDetails['item_name'] }} 
+                                                                        pengajuan peminjaman baru di Sisapras.<br /><br />{{ $emailDetails['borrower_name'] }}
+                                                                        mengajukan peminjaman {{ $emailDetails['item_name'] }}
                                                                         sejumlah {{ $emailDetails['lend_quantity'] }}
                                                                         buah.</span>
                                                                 </p>

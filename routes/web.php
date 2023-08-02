@@ -4,8 +4,10 @@ use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ResetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +37,14 @@ Route::middleware(['guest'])->group(function () {
     // Register routes
     Route::get('/register', [RegisterController::class, 'show'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
+    // Forgot password routes
+    Route::get('/forgot-password', [ForgotController::class, 'show'])->name('forgot');
+    Route::post('/forgot-passwod', [ForgotController::class, 'forgot'])->name('forgot.post');
+
+    // Reset password routes
+    Route::get('/reset-password/{token}', [ResetController::class, 'show'])->name('reset');
+    Route::post('/reset-password', [ResetController::class, 'reset'])->name('reset.post');
 });
 
 Route::middleware(['auth'])->group(function () {
