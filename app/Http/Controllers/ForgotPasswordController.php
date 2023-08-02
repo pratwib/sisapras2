@@ -31,7 +31,7 @@ class ForgotPasswordController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with(['message' => 'Link reset passowrd telah dikirim! Silakan cek inbox email kamu'])
+            ? back()->with(['message' => 'Link reset password telah dikirim! Silakan cek inbox email kamu'])
             : back()->withErrors(['email' => 'Email tidak terdaftar dalam sistem']);
     }
 

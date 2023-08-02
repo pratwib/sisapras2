@@ -597,7 +597,7 @@
                                 [endif]-->
                                                             <div class="v-text-align" align="left">
                                                                 <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://127.0.0.1:8000/user/borrow" style="height:52px; v-text-anchor:middle; width:160px;" arcsize="2%"  stroke="f" fillcolor="#696cff"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-                                                                <a href="http://127.0.0.1:8000/user/borrow" target="_blank" class="v-button v-button-colors" style="
+                                                                <a href="http://127.0.0.1:8000/admin/borrow" target="_blank" class="v-button v-button-colors" style="
                                       box-sizing: border-box;
                                       display: inline-block;
                                       text-decoration: none;

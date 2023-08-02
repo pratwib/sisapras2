@@ -73,7 +73,7 @@ class BorrowController extends Controller
                 'lend_quantity' => $borrowData['lend_quantity'],
             ];
             // Send email
-            // Mail::to($value['email'])->send(new NewRequestNotification($emailDetails));
+            Mail::to($value['email'])->send(new NewRequestNotification($emailDetails));
         }
 
         session()->flash('message', 'Peminjaman barang ' . $item->item_name . ' berhasil ditambahkan. Silakan menunggu proses pengajuan maksimal 1 hari kerja.');
@@ -170,6 +170,12 @@ class BorrowController extends Controller
 
         session()->flash('message', 'Peminjaman barang telah disetujui.');
 
+        // Email notification for user if their request is approved
+        $user = User::where('user_id', $borrow->user_id)->first();
+        $emailDetails = [];
+
+        // Mail::to($user->email)->send(new RequestApproved($emailDetails));
+
         $url = '/' . auth()->user()->role . '/borrow';
         return redirect($url);
     }
@@ -233,6 +239,12 @@ class BorrowController extends Controller
         $item->update();
 
         session()->flash('message', 'Peminjaman barang telah ditolak.');
+
+        // Email notification for user if their request is declined
+        $user = User::where('user_id', $borrow->user_id)->first();
+        $emailDetails = [];
+
+        // Mail::to($user->email)->send(new RequestDeclined($emailDetails));
 
         $url = '/' . auth()->user()->role . '/history';
         return redirect($url);
