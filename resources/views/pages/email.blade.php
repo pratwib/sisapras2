@@ -470,7 +470,18 @@
                                         line-height: 39.2px;
                                         color: #ffffff;
                                         font-family: Lato, sans-serif;
-                                      ">Pengajuan Peminjaman</span>
+                                      ">
+                                                                        @if(request()->routeIs('item.borrow'))
+                                                                        Peminjaman Baru
+
+                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        Peminjaman Disetujui
+
+                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        Peminjaman Ditolak
+
+                                                                        @endif
+                                                                    </span>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -546,7 +557,17 @@
                                         font-size: 18px;
                                         line-height: 25.2px;
                                         color: #666666;
-                                      ">Halo {{ $emailDetails['admin_name'] }},</span>
+                                      ">
+                                                                        @if(request()->routeIs('item.borrow'))
+                                                                        Halo {{ $emailDetails['admin_name'] }},
+
+                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        Halo (Nama Peminjam),
+
+                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        Halo (Nama Peminjam),
+                                                                        @endif
+                                                                    </span>
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%">
                                                                      
@@ -556,11 +577,26 @@
                                         font-size: 18px;
                                         line-height: 25.2px;
                                         color: #666666;
-                                      ">Kami ingin memberitahu bahwa terdapat
-                                                                        pengajuan peminjaman baru di Sisapras.<br /><br />{{ $emailDetails['borrower_name'] }}
+                                      ">
+                                                                        @if(request()->routeIs('item.borrow'))
+                                                                        Kami ingin memberitahu bahwa terdapat
+                                                                        pengajuan peminjaman baru di Sisarpras.<br /><br />{{ $emailDetails['borrower_name'] }}
                                                                         mengajukan peminjaman {{ $emailDetails['item_name'] }}
                                                                         sejumlah {{ $emailDetails['lend_quantity'] }}
-                                                                        buah.</span>
+                                                                        buah.
+
+                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah disetujui.<br /><br />
+                                                                        Segera ambil barang yang Kamu pinjam, (Nama Barang) sebanyak (lend_quantity)
+                                                                        di lokasi yang dipilih yaitu (nama lokasi).
+
+                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah ditolak.<br /><br />
+                                                                        Periksa kembali detail peminjaman Kamu atau hubungi kontak dibawah
+                                                                        jika Kamu merasa sudah memenuhi SOP.
+
+                                                                        @endif
+                                                                    </span>
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%">
                                                                      
@@ -570,8 +606,18 @@
                                         font-size: 18px;
                                         line-height: 25.2px;
                                         color: #666666;
-                                      ">Segera lakukan verifikasi dan persetujuan
-                                                                        peminjaman.</span>
+                                      ">
+                                                                        @if(request()->routeIs('item.borrow'))
+                                                                        Segera lakukan verifikasi dan persetujuan peminjaman.
+
+                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        Untuk informasi lebih lanjut silakan kunjungi halaman Pinjam Barang.
+
+                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        Untuk informasi lebih lanjut silakan kunjungi halaman Riwayat Peminjaman.
+
+                                                                        @endif
+                                                                    </span>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -597,7 +643,17 @@
                                 [endif]-->
                                                             <div class="v-text-align" align="left">
                                                                 <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://127.0.0.1:8000/user/borrow" style="height:52px; v-text-anchor:middle; width:160px;" arcsize="2%"  stroke="f" fillcolor="#696cff"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-                                                                <a href="http://127.0.0.1:8000/admin/borrow" target="_blank" class="v-button v-button-colors" style="
+                                                                <a href="                                  
+                                                                        @if(request()->routeIs('item.borrow'))
+                                                                        {{ route('borrow.'. $user->role) }}
+                                                                        
+                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        {{ route('borrow.'. $user->role) }}
+
+                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        {{ route('history.'. $user->role) }}
+
+                                                                        @endif" target="_blank" class="v-button v-button-colors" style="
                                       box-sizing: border-box;
                                       display: inline-block;
                                       text-decoration: none;
@@ -656,7 +712,7 @@
                                             font-size: 16px;
                                             line-height: 22.4px;
                                           ">Silakan abaikan email ini jika Kamu
-                                                                                sudah melakukan verifikasi. </span></em></span>
+                                                                                sudah melakukan pengecekan. </span></em></span>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -750,7 +806,7 @@
                                         font-size: 14px;
                                         line-height: 19.6px;
                                         color: #ecf0f1;
-                                      ">082123456789 | ftsapras@gmail.com</span>
+                                      ">085800115790 | ftsarpras@gmail.com</span>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -809,7 +865,12 @@
                                         "><span style="
                                             line-height: 14px;
                                             font-size: 14px;
-                                          ">Copyright  ©  2023 - SIFT</span></span></span>
+                                          ">
+                                                                                Copyright  © 
+                                                                                <script>
+                                                                                    document.write(new Date().getFullYear());
+                                                                                </script> - SIFT
+                                                                            </span></span></span>
                                                                 </p>
                                                             </div>
                                                         </td>

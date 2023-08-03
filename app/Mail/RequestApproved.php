@@ -29,7 +29,7 @@ class RequestApproved extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Request Approved',
+            subject: 'Peminjaman Disetujui',
         );
     }
 

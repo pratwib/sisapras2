@@ -25,7 +25,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="">SISAPRAS</a>
+            <a class="navbar-brand" href="">SISARPRAS</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
@@ -47,7 +47,7 @@
                     <hr class="divider" />
                 </div>
                 <div class="col-lg-8 align-self-baseline">
-                    <p class="text-white-75 mb-5">Silakan lakukan peminjaman alat elektronik dan barang lainnya hanya di Sisapras<br>Fakultas Teknik Universitas Diponegoro</p>
+                    <p class="text-white-75 mb-5">Silakan lakukan peminjaman alat elektronik dan barang lainnya hanya di Sisarpras<br>Fakultas Teknik Universitas Diponegoro</p>
                     <a class="btn btn-light btn-xl me-3" href="{{ route('register') }}">Register</a>
                     <a class="btn btn-primary btn-xl" href="{{ route('login') }}">Login</a>
                 </div>

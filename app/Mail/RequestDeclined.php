@@ -29,7 +29,7 @@ class RequestDeclined extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Request Declined',
+            subject: 'Peminjaman Ditolak',
         );
     }
 

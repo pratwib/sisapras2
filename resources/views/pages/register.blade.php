@@ -41,7 +41,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <span class="app-brand-text demo text-body fw-bolder">SISAPRAS</span>
+                            <span class="app-brand-text demo text-body fw-bolder">SISARPRAS</span>
                         </a>
                     </div>
                     <!-- /Logo -->
