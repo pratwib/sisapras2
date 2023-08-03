@@ -49,14 +49,16 @@
                         <i class="bx bx-buildings" style="font-size: 24px;"></i>
                       </div>
                     </div>
-                    <h3 class="card-title mb-1">{{ $locationCount }}</h3>
+                    <h3 class="card-title mb-1">
+                      {{ $locationCount }}
+                    </h3>
                     <span class="d-block mb-3">Lokasi Peminjaman</span>
                     <a href="{{ route('location') }}" class="btn btn-sm btn-outline-info">Lihat Detail</a>
                   </div>
                 </div>
               </div>
+              @endif
 
-              @elseif($user->role === 'user'||$user->role === 'admin')
               <div class="col-lg col-md">
                 <div class="card">
                   <div class="card-body">
@@ -65,7 +67,13 @@
                         <i class="bx bx-package" style="font-size: 24px;"></i>
                       </div>
                     </div>
-                    <h3 class="card-title mb-1">{{ $itemCount }}</h3>
+                    <h3 class="card-title mb-1">
+                      @if($user->role === 'admin')
+                      {{ $itemByLocationCount }}
+                      @else
+                      {{ $itemCount }}
+                      @endif
+                    </h3>
                     <span class="d-block mb-3">Barang Tersedia</span>
                     <a href="{{ route('item.'. $user->role) }}" class="btn btn-sm btn-outline-warning">Lihat Detail</a>
                   </div>
@@ -80,7 +88,15 @@
                         <i class="bx bx-sort-alt-2" style="font-size: 24px;"></i>
                       </div>
                     </div>
-                    <h3 class="card-title mb-1">{{ $borrowCount }}</h3>
+                    <h3 class="card-title mb-1">
+                      @if($user->role === 'superadmin')
+                      {{ $borrowCount }}
+                      @elseif($user->role === 'admin')
+                      {{ $borrowByLocationCount }}
+                      @else
+                      {{ $borrowByUserCount }}
+                      @endif
+                    </h3>
                     <span class="d-block mb-3">Barang Dipinjam</span>
                     <a href="{{ route('borrow.'. $user->role) }}" class="btn btn-sm btn-outline-success ">Lihat Detail</a>
                   </div>
@@ -95,13 +111,20 @@
                         <i class="bx bx-history" style="font-size: 24px;"></i>
                       </div>
                     </div>
-                    <h3 class="card-title mb-1">{{ $historyCount }}</h3>
+                    <h3 class="card-title mb-1">
+                      @if($user->role === 'superadmin')
+                      {{ $historyCount }}
+                      @elseif($user->role === 'admin')
+                      {{ $historyByLocationCount }}
+                      @else
+                      {{ $historyByUserCount }}
+                      @endif
+                    </h3>
                     <span class="d-block mb-3">Riwayat Peminjaman</span>
                     <a href="{{ route('history.'. $user->role) }}" class="btn btn-sm btn-outline-danger">Lihat Detail</a>
                   </div>
                 </div>
               </div>
-              @endif
 
             </div>
           </div>

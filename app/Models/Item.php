@@ -11,6 +11,10 @@ class Item extends Model
 {
     use HasFactory;
 
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     /**
      * The primary key associated with the table.
      *
