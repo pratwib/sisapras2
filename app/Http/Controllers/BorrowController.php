@@ -127,6 +127,8 @@ class BorrowController extends Controller
             }
         }
 
+        session()->flash('user', $user);
+
         return view('pages.borrow', compact('user', 'borrows'));
     }
 

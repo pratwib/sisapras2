@@ -82,7 +82,7 @@ class LocationController extends Controller
         $deletedLocation = Location::withTrashed()->find($id);
         $deletedLocation->restore();
 
-        session()->flash('message', 'Lokasi ' . $deletedLocation->location_name . ' berhasil dikembalikan');
+        session()->flash('message', 'Lokasi ' . $deletedLocation->location_name . ' berhasil dipulihkan');
 
         $url = '/' . auth()->user()->role . '/location';
         return redirect($url);

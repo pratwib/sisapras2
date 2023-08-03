@@ -282,6 +282,58 @@
                             </div>
                         </div>
                         <!--/ Small table -->
+
+                        <!-- Restore Item -->
+                        <div class="accordion mt-4">
+                            <div class="card accordion-item">
+                                <h2 class="accordion-header">
+                                    <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#itemRestore" aria-expanded="true" aria-controls="itemRestore">
+                                        Restore Barang
+                                    </button>
+                                </h2>
+
+                                <div id="itemRestore" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="table-responsive text-nowrap">
+                                            <table id="dataTable" class="table table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Barang</th>
+                                                        <th>Deskripsi</th>
+                                                        <th>Stok</th>
+                                                        <th>Lokasi</th>
+                                                        @if($user->role === 'user'||$user->role === 'admin')
+                                                        <th>Aksi</th>
+                                                        @endif
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    @foreach($deletedItems as $deletedItem)
+                                                    <tr>
+                                                        <td>{{ $deletedItem->item_id }}</td>
+                                                        <td><strong>{{ $deletedItem->item_name }}</strong></td>
+                                                        <td style="max-width: 20ch; overflow-wrap: break-word; white-space: normal;">
+                                                            {{ $deletedItem->item_desc }}
+                                                        </td>
+                                                        <td><strong>{{ $deletedItem->item_quantity }}</strong></td>
+                                                        <td>{{ $deletedItem->location->location_name}}</td>
+                                                        @if($user->role === 'user'||$user->role === 'admin')
+                                                        <td>
+
+                                                            <!-- Button Restore -->
+                                                            <a type="button" href="{{ route('item.restore', ['id' => $deletedItem->item_id]) }}" class="btn btn-sm btn-primary">Restore</a>
+                                                        </td>
+                                                        @endif
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- / Content -->

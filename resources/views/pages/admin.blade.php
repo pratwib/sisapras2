@@ -249,13 +249,58 @@
                             </div>
                         </div>
                         <!--/ Small table -->
+
+                        <!-- Restore Admin -->
+                        <div class="accordion mt-4">
+                            <div class="card accordion-item">
+                                <h2 class="accordion-header">
+                                    <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#adminRestore" aria-expanded="true" aria-controls="adminRestore">
+                                        Restore Admin
+                                    </button>
+                                </h2>
+
+                                <div id="adminRestore" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="table-responsive text-nowrap">
+                                            <table id="dataTable" class="table table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Nama</th>
+                                                        <th>Lokasi</th>
+                                                        <th>Nomor HP</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    @foreach($deletedAdmins as $deletedAdmin)
+                                                    <tr>
+                                                        <td>{{ $deletedAdmin->user_id}}</td>
+                                                        <td><strong>{{ $deletedAdmin->name}}</strong></td>
+                                                        <td>{{ $deletedAdmin->location->location_name}}</td>
+                                                        <td>{{ $deletedAdmin->hp_number}}</td>
+                                                        <td>
+
+                                                            <!-- Button Restore -->
+                                                            <a type="button" href="{{ route('admin.restore', ['id' => $deletedAdmin->user_id]) }}" class="btn btn-sm btn-primary">Restore</a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- / Content -->
 
                     @include('partials.footer')
 
-                    <div class="content-backdrop fade"></div>
+                    <div class=" content-backdrop fade">
+                    </div>
                 </div>
                 <!-- Content wrapper -->
             </div>

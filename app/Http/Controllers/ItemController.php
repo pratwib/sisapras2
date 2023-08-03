@@ -48,8 +48,6 @@ class ItemController extends Controller
         // Show deleted items only
         $deletedItems = Item::onlyTrashed()->with('location')->where('location_id', $user->location_id)->get();
 
-        // dd($deletedItems);
-
         return view('pages.item', compact('user', 'items', 'deletedItems'));
     }
 
@@ -125,7 +123,7 @@ class ItemController extends Controller
         $deletedItem = Item::withTrashed()->find($id);
         $deletedItem->restore();
 
-        session()->flash('message', 'Barang ' . $deletedItem->item_name . ' berhasil dikembalikan');
+        session()->flash('message', 'Barang ' . $deletedItem->item_name . ' berhasil dipulihkan');
 
         $url = '/' . auth()->user()->role . '/item';
         return redirect($url);

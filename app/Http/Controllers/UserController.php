@@ -101,7 +101,6 @@ class UserController extends Controller
         // Show deleted admins only
         $deletedAdmins = User::onlyTrashed()->with('location')->where('role', 'admin')->get();
 
-        // dd($deletedAdmins);
 
         return view('pages.admin', compact('user', 'admins', 'deletedAdmins'));
     }
@@ -207,12 +206,12 @@ class UserController extends Controller
     }
 
     // Restoring deleted admin
-    public function restoreAdmin($id): RedirectResponse
+    public function restore($id): RedirectResponse
     {
         $deletedAdmin = User::withTrashed()->find($id);
         $deletedAdmin->restore();
 
-        session()->flash('message', 'Admin ' . $deletedAdmin->name . ' berhasil dikembalikan');
+        session()->flash('message', 'Admin ' . $deletedAdmin->name . ' berhasil dipulihkan');
 
         $url = '/' . auth()->user()->role . '/admin';
         return redirect($url);

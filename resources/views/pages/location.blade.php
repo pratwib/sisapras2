@@ -10,6 +10,16 @@
 
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
+        @if (session()->has('message'))
+        <div class="bs-toast toast fade show toast-placement-ex bg-primary top-0 start-50 translate-middle-x m-3" role=" alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="bx bx-bell me-2"></i>
+                <div class="me-auto fw-semibold">Sisarpras</div>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">{{ session()->get('message') }}</div>
+        </div>
+        @endif
         <div class="layout-container">
 
             @include('partials.menu')
@@ -165,6 +175,46 @@
                             </div>
                         </div>
                         <!--/ Small table -->
+
+                        <!-- Restore Location -->
+                        <div class="accordion mt-4">
+                            <div class="card accordion-item">
+                                <h2 class="accordion-header">
+                                    <button type="button" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#locationRestore" aria-expanded="true" aria-controls="locationRestore">
+                                        Restore Lokasi
+                                    </button>
+                                </h2>
+
+                                <div id="locationRestore" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="table-responsive text-nowrap">
+                                            <table id="dataTable" class="table table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Lokasi</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    @foreach($deletedLocations as $deletedLocation)
+                                                    <tr>
+                                                        <td>{{ $deletedLocation->location_id }}</td>
+                                                        <td><strong>{{ $deletedLocation->location_name }}</strong></td>
+                                                        <td>
+
+                                                            <!-- Button Restore -->
+                                                            <a type="button" href="{{ route('location.restore', ['id' => $deletedLocation->location_id]) }}" class="btn btn-sm btn-primary">Restore</a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- / Content -->
