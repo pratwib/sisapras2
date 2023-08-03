@@ -92,6 +92,7 @@ class UserController extends Controller
             ->join('users', 'locations.location_id', '=', 'users.location_id')
             ->select('users.*', 'locations.location_name')
             ->where('users.role', 'admin')
+            ->where('users.deleted_at', null)
             ->get();
 
         $locations = Location::orderBy('location_name')->get();

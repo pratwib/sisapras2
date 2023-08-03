@@ -63,7 +63,7 @@ class LocationController extends Controller
     // Deleting a location with soft delete (only for super admin)
     public function delete($id): RedirectResponse
     {
-        $location = Location::find($id);
+        $location = Location::findOrFail($id);
 
         $location->delete();
 

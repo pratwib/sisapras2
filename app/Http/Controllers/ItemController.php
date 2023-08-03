@@ -22,6 +22,7 @@ class ItemController extends Controller
         $items = DB::table('locations')
             ->join('items', 'locations.location_id', '=', 'items.location_id')
             ->select('items.*', 'locations.location_name')
+            ->where('items.deleted_at', null)
             ->get();
 
         $locations = Location::orderBy('location_name')->get();
@@ -39,15 +40,10 @@ class ItemController extends Controller
             ->join('items', 'locations.location_id', '=', 'items.location_id')
             ->select('items.*', 'locations.location_name')
             ->where('items.location_id', $user->location_id)
+            ->where('items.deleted_at', null)
             ->get();
 
-        $location = DB::table('locations')
-            ->join('users', 'locations.location_id', '=', 'users.location_id')
-            ->select('locations.location_name')
-            ->where('users.location_id', $user->location_id)
-            ->get();
-
-        return view('pages.item', compact('user', 'items', 'location'));
+        return view('pages.item', compact('user', 'items'));
     }
 
     // Store a new item
@@ -106,7 +102,7 @@ class ItemController extends Controller
     // Deleting an item
     public function delete($id): RedirectResponse
     {
-        $item = Item::find($id);
+        $item = Item::findOrFail($id);
 
         $item->delete();
 

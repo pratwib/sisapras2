@@ -51,7 +51,7 @@
                                 <h5 class="card-title">Daftar Barang</h5>
                                 <div class="ms-auto d-flex">
 
-                                    @if($user->role === 'admin'||$user->role === 'superadmin')
+                                    @if($user->role === 'admin')
                                     <!-- Button Add modal -->
                                     <button type="button" href="#addModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"><span style="white-space: nowrap;">Tambah Barang</span></button>
 
@@ -81,19 +81,6 @@
                                                             <label for="item_quantitiy" class="form-label">Stok</label>
                                                             <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Masukkan stok barang" min="0" value="1">
                                                         </div>
-                                                        @if($user->role === 'superadmin')
-                                                        <div class="mb-3">
-                                                            <label for="location_id" class="form-label">Lokasi</label>
-                                                            <select class="form-select @error('location_id') is-invalid @enderror" type="text" id="location_id" name="location_id">
-                                                                @foreach(session('locations') as $location)
-                                                                <option value="{{ $location->location_id}}">{{ $location->location_name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('location_id')
-                                                            <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                        @endif
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -119,7 +106,9 @@
                                             <th>Deskripsi</th>
                                             <th>Stok</th>
                                             <th>Lokasi</th>
+                                            @if($user->role === 'user'||$user->role === 'admin')
                                             <th>Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
@@ -132,6 +121,7 @@
                                             </td>
                                             <td><strong>{{ $item->item_quantity }}</strong></td>
                                             <td>{{ $item->location_name}}</td>
+                                            @if($user->role === 'user'||$user->role === 'admin')
                                             <td>
                                                 @if($user->role === 'user')
                                                 <!-- Button Borrow Modal -->
@@ -208,7 +198,7 @@
                                                 </div>
                                                 @endif
 
-                                                @if($user->role === 'admin'||$user->role === 'superadmin')
+                                                @if($user->role === 'admin')
                                                 <!-- Button Edit modal -->
                                                 <button type="button" href="#editModal{{ $item->item_id }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->item_id }}">
                                                     <span class="tf-icons bx bx-edit"></span>
@@ -240,19 +230,6 @@
                                                                         <label for="item_quantitiy" class="form-label">Stok</label>
                                                                         <input type="number" class="form-control" id="item_quantity" name="item_quantity" placeholder="Masukkan stok barang" min="0" value="{{ $item->item_quantity }}">
                                                                     </div>
-                                                                    @if($user->role === 'superadmin')
-                                                                    <div class="mb-3">
-                                                                        <label for="location_id" class="form-label">Lokasi</label>
-                                                                        <select class="form-select @error('location_id') is-invalid @enderror" type="text" id="location_id" name="location_id">
-                                                                            @foreach(session('locations') as $location)
-                                                                            <option value=" {{ $location->location_id}}" @if($location->location_id === $item->location_id) selected @endif >{{ $location->location_name}}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        @error('location_id')
-                                                                        <div class="mt-1 alert alert-danger" role="alert" style="font-size: 12px;">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                    @endif
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -297,6 +274,7 @@
                                                 </div>
                                                 @endif
                                             </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                     </tbody>
