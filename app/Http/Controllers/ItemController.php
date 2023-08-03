@@ -28,6 +28,8 @@ class ItemController extends Controller
         $locations = Location::orderBy('location_name')->get();
         session()->flash('locations', $locations);
 
+        session()->flash('user', $user);
+
         return view('pages.item', compact('user', 'items'));
     }
 
