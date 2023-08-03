@@ -16,7 +16,10 @@ class LocationController extends Controller
         $user = Auth::user();
         $locations = Location::all();
 
-        return view('pages.location', compact('user', 'locations'));
+        // Show deleted locations only
+        $deletedLocations = Location::onlyTrashed()->get();
+
+        return view('pages.location', compact('user', 'locations', 'deletedLocations'));
     }
 
     // Store a new location (only for superadmin)
