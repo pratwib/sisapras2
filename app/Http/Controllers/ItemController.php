@@ -43,7 +43,12 @@ class ItemController extends Controller
             ->where('items.deleted_at', null)
             ->get();
 
-        return view('pages.item', compact('user', 'items'));
+        // Show deleted items only
+        $deletedItems = Item::onlyTrashed()->with('location')->where('location_id', $user->location_id)->get();
+
+        // dd($deletedItems);
+
+        return view('pages.item', compact('user', 'items', 'deletedItems'));
     }
 
     // Store a new item

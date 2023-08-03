@@ -44,6 +44,6 @@ class Item extends Model
     // Get the location of the item
     public function location(): BelongsTo
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(Location::class, 'location_id');
     }
 }
