@@ -69,11 +69,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/location/add', [LocationController::class, 'create'])->middleware('UserAccess:superadmin')->name('location.add');
         Route::post('/location/{id}/edit', [LocationController::class, 'update'])->middleware('UserAccess:superadmin')->name('location.edit');
         Route::delete('/location/{id}/delete', [LocationController::class, 'delete'])->middleware('UserAccess:superadmin')->name('location.delete');
+        Route::get('/location/{id}/restore', [LocationController::class, 'restore'])->middleware('UserAccess:superadmin')->name('location.restore');
 
         Route::get('/admin', [UserController::class, 'showAdmin'])->middleware('UserAccess:superadmin')->name('admin');
         Route::post('/admin/add', [UserController::class, 'createAdmin'])->middleware('UserAccess:superadmin')->name('admin.add');
         Route::post('/admin/{id}/edit', [UserController::class, 'updateAdmin'])->middleware('UserAccess:superadmin')->name('admin.edit');
         Route::delete('/admin/{id}/delete', [UserController::class, 'deleteAdmin'])->middleware('UserAccess:superadmin')->name('admin.delete');
+        Route::get('/admin/{id}/restore', [UserController::class, 'restoreAdmin'])->middleware('UserAccess:superadmin')->name('admin.restore');
 
         Route::get('/item', [ItemController::class, 'showAll'])->middleware('UserAccess:superadmin')->name('item.superadmin');
 
@@ -97,6 +99,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/item/add', [ItemController::class, 'create'])->middleware('UserAccess:admin')->name('item.add.admin');
         Route::post('/item/{id}/edit', [ItemController::class, 'update'])->middleware('UserAccess:admin')->name('item.edit.admin');
         Route::delete('/item/{id}/delete', [ItemController::class, 'delete'])->middleware('UserAccess:admin')->name('item.delete.admin');
+        Route::get('/item/{id}/restore', [ItemController::class, 'restore'])->middleware('UserAccess:admin')->name('item.restore.admin');
 
         Route::get('/borrow', [BorrowController::class, 'show'])->middleware('UserAccess:admin')->name('borrow.admin');
         Route::get('/borrow/{id}/detail', [BorrowController::class, 'show'])->middleware('UserAccess:admin')->name('borrow.detail.admin');

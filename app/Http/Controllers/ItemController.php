@@ -116,4 +116,16 @@ class ItemController extends Controller
         $url = '/' . auth()->user()->role . '/item';
         return redirect($url);
     }
+
+    // Restoreing deleted item
+    public function restore($id): RedirectResponse
+    {
+        $deletedItem = Item::withTrashed()->find($id);
+        $deletedItem->restore();
+
+        session()->flash('message', 'Barang ' . $deletedItem->item_name . ' berhasil dikembalikan');
+
+        $url = '/' . auth()->user()->role . '/item';
+        return redirect($url);
+    }
 }

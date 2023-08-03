@@ -75,4 +75,16 @@ class LocationController extends Controller
         $url = '/' . auth()->user()->role . '/location';
         return redirect($url);
     }
+
+    // Restoring deleted locations
+    public function restore($id): RedirectResponse
+    {
+        $deletedLocation = Location::withTrashed()->find($id);
+        $deletedLocation->restore();
+
+        session()->flash('message', 'Lokasi ' . $deletedLocation->location_name . ' berhasil dikembalikan');
+
+        $url = '/' . auth()->user()->role . '/location';
+        return redirect($url);
+    }
 }
