@@ -14,7 +14,7 @@
         <div class="bs-toast toast fade show toast-placement-ex bg-primary top-0 start-50 translate-middle-x m-3" role=" alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <i class="bx bx-bell me-2"></i>
-                <div class="me-auto fw-semibold">Sisapras</div>
+                <div class="me-auto fw-semibold">Sisarpras</div>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">{{ session()->get('message') }}</div>
@@ -52,7 +52,7 @@
                                     </g>
                                 </svg>
                             </span>
-                            <span class="app-brand-text demo text-body fw-bolder">SISAPRAS</span>
+                            <span class="app-brand-text demo text-body fw-bolder">SISARPRAS</span>
                         </a>
                     </div>
                     <!-- /Logo -->

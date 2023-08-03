@@ -73,7 +73,7 @@ class BorrowController extends Controller
                 'lend_quantity' => $borrowData['lend_quantity'],
             ];
             // Send email
-            // Mail::to($value['email'])->send(new NewRequestNotification($emailDetails));
+            Mail::to($value['email'])->send(new NewRequestNotification($emailDetails));
         }
 
         session()->flash('message', 'Peminjaman barang ' . $item->item_name . ' berhasil ditambahkan. Silakan menunggu proses pengajuan maksimal 1 hari kerja.');
@@ -180,6 +180,32 @@ class BorrowController extends Controller
         return redirect($url);
     }
 
+    // Decline borrow request by admin
+    public function declined(Request $request): RedirectResponse
+    {
+        $borrow = Borrow::find($request->borrow_id);
+        $borrow->lend_status = 'declined';
+        $borrow->update();
+
+        // Updating item quantity back to normal
+        $borrowItem = Borrow::find($request->borrow_id);
+        $item = Item::where('item_id', $borrowItem->item_id)->first();
+
+        $item->item_quantity = $item->item_quantity + $borrowItem->lend_quantity;
+        $item->update();
+
+        session()->flash('message', 'Peminjaman barang telah ditolak.');
+
+        // Email notification for user if their request is declined
+        $user = User::where('user_id', $borrow->user_id)->first();
+        $emailDetails = [];
+
+        // Mail::to($user->email)->send(new RequestDeclined($emailDetails));
+
+        $url = '/' . auth()->user()->role . '/history';
+        return redirect($url);
+    }
+
     // Lending item (for admin)
     public function borrowed(Request $request): RedirectResponse
     {
@@ -219,32 +245,6 @@ class BorrowController extends Controller
         $item->update();
 
         session()->flash('message', 'Peminjaman barang telah dibatalkan');
-
-        $url = '/' . auth()->user()->role . '/history';
-        return redirect($url);
-    }
-
-    // Decline borrow request by admin
-    public function declined(Request $request): RedirectResponse
-    {
-        $borrow = Borrow::find($request->borrow_id);
-        $borrow->lend_status = 'declined';
-        $borrow->update();
-
-        // Updating item quantity back to normal
-        $borrowItem = Borrow::find($request->borrow_id);
-        $item = Item::where('item_id', $borrowItem->item_id)->first();
-
-        $item->item_quantity = $item->item_quantity + $borrowItem->lend_quantity;
-        $item->update();
-
-        session()->flash('message', 'Peminjaman barang telah ditolak.');
-
-        // Email notification for user if their request is declined
-        $user = User::where('user_id', $borrow->user_id)->first();
-        $emailDetails = [];
-
-        // Mail::to($user->email)->send(new RequestDeclined($emailDetails));
 
         $url = '/' . auth()->user()->role . '/history';
         return redirect($url);

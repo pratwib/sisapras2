@@ -76,9 +76,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/admin/{id}/delete', [UserController::class, 'deleteAdmin'])->middleware('UserAccess:superadmin')->name('admin.delete');
 
         Route::get('/item', [ItemController::class, 'showAll'])->middleware('UserAccess:superadmin')->name('item.superadmin');
-        Route::post('/item/add', [ItemController::class, 'create'])->middleware('UserAccess:superadmin')->name('item.add.superadmin');
-        Route::post('/item/{id}/edit', [ItemController::class, 'update'])->middleware('UserAccess:superadmin')->name('item.edit.superadmin');
-        Route::delete('/item/{id}/delete', [ItemController::class, 'delete'])->middleware('UserAccess:superadmin')->name('item.delete.superadmin');
 
         Route::get('/borrow', [BorrowController::class, 'show'])->middleware('UserAccess:superadmin')->name('borrow.superadmin');
         Route::get('/borrow/{id}/detail', [BorrowController::class, 'show'])->middleware('UserAccess:superadmin')->name('borrow.detail.superadmin');
