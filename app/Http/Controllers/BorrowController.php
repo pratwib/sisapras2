@@ -20,6 +20,8 @@ class BorrowController extends Controller
     // Storing a new borrow
     public function borrow(Request $request): RedirectResponse
     {
+        $user = Auth::user();
+
         $request->validate([
             'return_date' => 'required',
             'lend_quantity' => 'required',
@@ -77,6 +79,8 @@ class BorrowController extends Controller
         }
 
         session()->flash('message', 'Peminjaman barang ' . $item->item_name . ' berhasil ditambahkan. Silakan menunggu proses pengajuan maksimal 1 hari kerja.');
+
+        session()->flash('user', $user);
 
         $url = '/' . auth()->user()->role . '/borrow';
         return redirect($url);
@@ -176,6 +180,8 @@ class BorrowController extends Controller
         $user = User::where('user_id', $borrow->user_id)->first();
         $emailDetails = [];
 
+        session()->flash('user', $user);
+
         // Mail::to($user->email)->send(new RequestApproved($emailDetails));
 
         $url = '/' . auth()->user()->role . '/borrow';
@@ -201,6 +207,8 @@ class BorrowController extends Controller
         // Email notification for user if their request is declined
         $user = User::where('user_id', $borrow->user_id)->first();
         $emailDetails = [];
+
+        session()->flash('user', $user);
 
         // Mail::to($user->email)->send(new RequestDeclined($emailDetails));
 

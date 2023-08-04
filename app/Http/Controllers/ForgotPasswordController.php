@@ -64,7 +64,7 @@ class ForgotPasswordController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('message', 'Password kamu berhasil diubah! Silahkan login')
+            ? redirect()->route('login')->with('message', 'Password kamu berhasil diubah! Silakan login')
             : back()->withErrors(['email' => [__($status)]]);
     }
 }

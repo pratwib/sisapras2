@@ -474,11 +474,14 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         Peminjaman Baru
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
                                                                         Peminjaman Disetujui
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
                                                                         Peminjaman Ditolak
+
+                                                                        @elseif(request()->routeIs('forgot.post'))
+                                                                        Reset Password
 
                                                                         @endif
                                                                     </span>
@@ -561,11 +564,15 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         Halo {{ $emailDetails['admin_name'] }},
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
                                                                         Halo (Nama Peminjam),
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
                                                                         Halo (Nama Peminjam),
+
+                                                                        @elseif(request()->routeIs('forgot.post'))
+                                                                        Halo (Nama User),
+
                                                                         @endif
                                                                     </span>
                                                                 </p>
@@ -585,15 +592,18 @@
                                                                         sejumlah {{ $emailDetails['lend_quantity'] }}
                                                                         buah.
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
                                                                         Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah disetujui.<br /><br />
                                                                         Segera ambil barang yang Kamu pinjam, (Nama Barang) sebanyak (lend_quantity)
                                                                         di lokasi yang dipilih yaitu (nama lokasi).
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' .session('user') as $user->role))
                                                                         Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah ditolak.<br /><br />
                                                                         Periksa kembali detail peminjaman Kamu atau hubungi kontak dibawah
                                                                         jika Kamu merasa sudah memenuhi SOP.
+
+                                                                        @elseif(request()->routeIs('forgot.post'))
+                                                                        Kamu menerima email ini karena kami menerima permintaan reset password untuk akun Kamu.
 
                                                                         @endif
                                                                     </span>
@@ -610,11 +620,15 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         Segera lakukan verifikasi dan persetujuan peminjaman.
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
                                                                         Untuk informasi lebih lanjut silakan kunjungi halaman Pinjam Barang.
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
                                                                         Untuk informasi lebih lanjut silakan kunjungi halaman Riwayat Peminjaman.
+
+                                                                        @elseif(request()->routeIs('forgot.post'))
+                                                                        Link reset password ini akan kedaluwarsa dalam 60 menit.
+                                                                        Jika Kamu tidak meminta reset password, tidak ada tindakan lebih lanjut yang diperlukan.
 
                                                                         @endif
                                                                     </span>
@@ -647,11 +661,14 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         {{ route('borrow.'. $user->role) }}
                                                                         
-                                                                        @elseif(request()->routeIs('borrow.approve.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
                                                                         {{ route('borrow.'. $user->role) }}
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
                                                                         {{ route('history.'. $user->role) }}
+
+                                                                        @elseif(request()->routeIs('forgot.post'))
+                                                                        {{ route('password.reset) }}
 
                                                                         @endif" target="_blank" class="v-button v-button-colors" style="
                                       box-sizing: border-box;
