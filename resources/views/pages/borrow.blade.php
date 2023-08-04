@@ -111,6 +111,10 @@
                                                                         <input readonly type="text" class="form-control" id="name" name="name" value="{{ $borrow->name }}">
                                                                     </div>
                                                                     <div class="mb-3">
+                                                                        <label for="hp_number" class="form-label">Nomor HP</label>
+                                                                        <input readonly type="tel" class="form-control" id="hp_number" name="hp_number" value="{{ $borrow->hp_number }}">
+                                                                    </div>
+                                                                    <div class="mb-3">
                                                                         <label for="item_name" class="form-label">Barang</label>
                                                                         <input readonly type="text" class="form-control" id="item_name" name="item_name" value="{{ $borrow->item_name }}">
                                                                     </div>

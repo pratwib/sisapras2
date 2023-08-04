@@ -283,6 +283,7 @@
                         </div>
                         <!--/ Small table -->
 
+                        @if($user->role === 'admin')
                         <!-- Restore Item -->
                         <div class="accordion mt-4">
                             <div class="card accordion-item">
@@ -334,6 +335,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
 
                     <!-- / Content -->

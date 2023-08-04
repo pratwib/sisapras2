@@ -93,7 +93,7 @@ class BorrowController extends Controller
             ->join('borrows', 'locations.location_id', '=', 'borrows.location_id')
             ->join('users', 'borrows.user_id', '=', 'users.user_id')
             ->join('items', 'borrows.item_id', '=', 'items.item_id')
-            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name');
+            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name', 'users.hp_number');
 
         if ($user->role == 'user') {
             $query->where('users.user_id', $userId);
@@ -143,7 +143,7 @@ class BorrowController extends Controller
             ->join('borrows', 'locations.location_id', '=', 'borrows.location_id')
             ->join('users', 'borrows.user_id', '=', 'users.user_id')
             ->join('items', 'borrows.item_id', '=', 'items.item_id')
-            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name');
+            ->select('borrows.*', 'locations.location_name', 'items.item_name', 'users.name', 'users.hp_number');
 
         if ($user->role == 'user') {
             $query->where('users.user_id', $userId);
