@@ -474,10 +474,10 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         Peminjaman Baru
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
                                                                         Peminjaman Disetujui
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' . auth()->user()->role))
                                                                         Peminjaman Ditolak
 
                                                                         @elseif(request()->routeIs('forgot.post'))
@@ -564,11 +564,11 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         Halo {{ $emailDetails['admin_name'] }},
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
-                                                                        Halo (Nama Peminjam),
+                                                                        @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
+                                                                        Halo {{ $emailDetails['user_name'] }},
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
-                                                                        Halo (Nama Peminjam),
+                                                                        @elseif(request()->routeIs('borrow.decline.' . auth()->user()->role))
+                                                                        Halo {{ $emailDetails['user_name'] }},
 
                                                                         @elseif(request()->routeIs('forgot.post'))
                                                                         Halo (Nama User),
@@ -592,12 +592,12 @@
                                                                         sejumlah {{ $emailDetails['lend_quantity'] }}
                                                                         buah.
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
                                                                         Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah disetujui.<br /><br />
-                                                                        Segera ambil barang yang Kamu pinjam, (Nama Barang) sebanyak (lend_quantity)
-                                                                        di lokasi yang dipilih yaitu (nama lokasi).
+                                                                        Segera ambil barang yang Kamu pinjam, {{ $emailDetails['item_name'] }} sebanyak {{ $emailDetails['lend_quantity'] }}
+                                                                        di lokasi yang dipilih yaitu {{ $emailDetails['location_name'] }}.
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' .session('user') as $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' .auth()->user()->role))
                                                                         Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah ditolak.<br /><br />
                                                                         Periksa kembali detail peminjaman Kamu atau hubungi kontak dibawah
                                                                         jika Kamu merasa sudah memenuhi SOP.
@@ -620,10 +620,10 @@
                                                                         @if(request()->routeIs('item.borrow'))
                                                                         Segera lakukan verifikasi dan persetujuan peminjaman.
 
-                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
+                                                                        @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
                                                                         Untuk informasi lebih lanjut silakan kunjungi halaman Pinjam Barang.
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
+                                                                        @elseif(request()->routeIs('borrow.decline.' . auth()->user()->role))
                                                                         Untuk informasi lebih lanjut silakan kunjungi halaman Riwayat Peminjaman.
 
                                                                         @elseif(request()->routeIs('forgot.post'))
@@ -659,16 +659,16 @@
                                                                 <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://127.0.0.1:8000/user/borrow" style="height:52px; v-text-anchor:middle; width:160px;" arcsize="2%"  stroke="f" fillcolor="#696cff"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
                                                                 <a href="                                  
                                                                         @if(request()->routeIs('item.borrow'))
-                                                                        {{ route('borrow.'. $user->role) }}
+                                                                        {{ route('borrow.'. auth()->user()->role) }}
                                                                         
-                                                                        @elseif(request()->routeIs('borrow.approve.' . session('user') as $user->role))
-                                                                        {{ route('borrow.'. $user->role) }}
+                                                                        @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
+                                                                        {{ route('borrow.'. auth()->user()->role) }}
 
-                                                                        @elseif(request()->routeIs('borrow.decline.' . session('user') as $user->role))
-                                                                        {{ route('history.'. $user->role) }}
+                                                                        @elseif(request()->routeIs('borrow.decline.' . auth()->user()->role))
+                                                                        {{ route('history.'. auth()->user()->role) }}
 
                                                                         @elseif(request()->routeIs('forgot.post'))
-                                                                        {{ route('password.reset) }}
+                                                                        {{ route('password.reset') }}
 
                                                                         @endif" target="_blank" class="v-button v-button-colors" style="
                                       box-sizing: border-box;

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NewRequestNotification;
+use App\Mail\RequestApproved;
+use App\Mail\RequestDeclined;
 use App\Models\Item;
 use App\Models\Borrow;
 use App\Models\User;
@@ -170,7 +172,7 @@ class BorrowController extends Controller
     // Approve borrow request by admin
     public function approved(Request $request): RedirectResponse
     {
-        $borrow = Borrow::find($request->borrow_id);
+        $borrow = Borrow::with('item')->with('location')->find($request->borrow_id);
         $borrow->lend_status = 'approved';
         $borrow->update();
 
@@ -178,11 +180,16 @@ class BorrowController extends Controller
 
         // Email notification for user if their request is approved
         $user = User::where('user_id', $borrow->user_id)->first();
-        $emailDetails = [];
+        $emailDetails = [
+            'user_name' => $user->name,
+            'item_name' => $borrow->item->item_name,
+            'lend_quantity' => $borrow->lend_quantity,
+            'location_name' => $borrow->location->location_name,
+        ];
 
         session()->flash('user', $user);
 
-        // Mail::to($user->email)->send(new RequestApproved($emailDetails));
+        Mail::to($user->email)->send(new RequestApproved($emailDetails));
 
         $url = '/' . auth()->user()->role . '/borrow';
         return redirect($url);
@@ -206,11 +213,13 @@ class BorrowController extends Controller
 
         // Email notification for user if their request is declined
         $user = User::where('user_id', $borrow->user_id)->first();
-        $emailDetails = [];
+        $emailDetails = [
+            'user_name' => $user->name,
+        ];
 
         session()->flash('user', $user);
 
-        // Mail::to($user->email)->send(new RequestDeclined($emailDetails));
+        Mail::to($user->email)->send(new RequestDeclined($emailDetails));
 
         $url = '/' . auth()->user()->role . '/history';
         return redirect($url);
