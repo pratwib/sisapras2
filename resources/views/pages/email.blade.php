@@ -337,7 +337,7 @@
                                         padding-right: 0px;
                                         padding-left: 0px;
                                       " align="center">
-                                                                        <img align="center" border="0" href="../assets/img/logo.png" alt="Icon" title="Icon" style="
+                                                                        <img align="center" border="0" href="../assets/img/email/logo.png" alt="Logo" title="Logo" style="
                                           outline: none;
                                           text-decoration: none;
                                           -ms-interpolation-mode: bicubic;
@@ -424,7 +424,20 @@
                                         padding-right: 0px;
                                         padding-left: 0px;
                                       " align="center">
-                                                                        <img align="center" border="0" href="../assets/img/borrow.png" alt="Image" title="Image" style="
+                                                                        <img align="center" border="0" href="              
+                                                                        @if(request()->routeIs('item.borrow'))
+                                                                        ../assets/img/email/borrow.png
+                                                                                                                                                
+                                                                        @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
+                                                                        ../assets/img/email/approve.png
+
+                                                                        @elseif(request()->routeIs('borrow.decline.' . auth()->user()->role))
+                                                                        ../assets/img/email/decline.png
+
+                                                                        @elseif(request()->routeIs('forgot.post'))
+                                                                        ../assets/img/email/reset.png
+
+                                                                        @endif" alt="Icon" title="Icon" style="
                                           outline: none;
                                           text-decoration: none;
                                           -ms-interpolation-mode: bicubic;
