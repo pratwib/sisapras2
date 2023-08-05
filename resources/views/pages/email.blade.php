@@ -337,7 +337,7 @@
                                         padding-right: 0px;
                                         padding-left: 0px;
                                       " align="center">
-                                                                        <img align="center" border="0" href="../assets/img/email/logo.png" alt="Logo" title="Logo" style="
+                                                                        <img align="center" border="0" src="{{ asset('img/email/logo.png') }}" alt="Logo" title="Logo" style="
                                           outline: none;
                                           text-decoration: none;
                                           -ms-interpolation-mode: bicubic;
@@ -424,18 +424,18 @@
                                         padding-right: 0px;
                                         padding-left: 0px;
                                       " align="center">
-                                                                        <img align="center" border="0" href="              
+                                                                        <img align="center" border="0" src="              
                                                                         @if(request()->routeIs('item.borrow'))
-                                                                        ../assets/img/email/borrow.png
+                                                                        {{ asset('img/email/borrow.png') }}
                                                                                                                                                 
                                                                         @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
-                                                                        ../assets/img/email/approve.png
+                                                                        {{ asset('img/email/approve.png') }}
 
                                                                         @elseif(request()->routeIs('borrow.decline.' . auth()->user()->role))
-                                                                        ../assets/img/email/decline.png
+                                                                        {{ asset('img/email/decline.png') }}
 
                                                                         @elseif(request()->routeIs('forgot.post'))
-                                                                        ../assets/img/email/reset.png
+                                                                        {{ asset('img/email/reset.png') }}
 
                                                                         @endif" alt="Icon" title="Icon" style="
                                           outline: none;
