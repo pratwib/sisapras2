@@ -114,8 +114,6 @@ class UserController extends Controller
             'hp_number' => ['required', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
             'email' => 'required|unique:users,email|email',
             'password' => 'required|min:8',
-            'reg_number' => 'required|unique:users,reg_number',
-            'department' => 'required',
         ], [
             'location_id' => 'Silakan pilih lokasi Kamu',
             'name.required' => 'Silakan masukkan nama Kamu',
@@ -126,9 +124,6 @@ class UserController extends Controller
             'email.email' => 'Silakan masukkan email yang valid',
             'password.required' => 'Silakan masukkan password Kamu',
             'password.min' => 'Password harus terdiri dari setidaknya 8 karakter',
-            'reg_number.required' => 'Silakan masukkan  NIM atau NIP Kamu',
-            'reg_number.unique' => 'NIM atau NIP sudah terdaftar',
-            'department.required' => 'Silakan masukkan departemen Kamu',
         ]);
 
         $newAdmin = [
@@ -138,8 +133,6 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'admin',
-            'reg_number' => $request->reg_number,
-            'department' => $request->department,
         ];
 
         User::create($newAdmin);

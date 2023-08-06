@@ -23,7 +23,7 @@ class ForgotPasswordController extends Controller
         $request->validate([
             'email' => 'required|email',
         ], [
-            'email.required' => 'Silahkan masukkan email kamu'
+            'email.required' => 'Silahkan masukkan email Kamu'
         ]);
 
         $status = Password::sendResetLink(
@@ -31,7 +31,7 @@ class ForgotPasswordController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with(['message' => 'Link reset password telah dikirim! Silakan cek inbox email kamu'])
+            ? back()->with(['message' => 'Link reset password telah dikirim! Silakan cek inbox email Kamu'])
             : back()->withErrors(['email' => 'Email tidak terdaftar dalam sistem']);
     }
 
