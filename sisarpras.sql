@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2023 at 05:58 AM
+-- Generation Time: Aug 07, 2023 at 06:13 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,18 +40,6 @@ CREATE TABLE `borrows` (
   `lend_status` enum('requested','approved','declined','canceled','borrowed','returned','overdue') NOT NULL DEFAULT 'requested'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `borrows`
---
-
-INSERT INTO `borrows` (`borrow_id`, `location_id`, `item_id`, `user_id`, `lend_date`, `return_date`, `lend_quantity`, `lend_detail`, `lend_photo`, `lend_status`) VALUES
-(27, 16, 15, 62, '2023-08-06 06:17:29', '2023-08-07', 1, 'abcde', '230806061729.jpg', 'canceled'),
-(28, 16, 15, 62, '2023-08-06 06:19:29', '2023-08-05', 1, 'abcde', '230806061929.jpg', 'declined'),
-(29, 17, 18, 62, '2023-08-06 06:21:28', '2023-08-08', 2, 'abcde', '230806062128.jpg', 'declined'),
-(30, 16, 16, 63, '2023-08-06 06:23:26', '2023-08-10', 2, 'abcde', '230806062326.jpg', 'returned'),
-(31, 16, 16, 63, '2023-08-06 06:23:34', '2023-08-10', 2, 'abcde', '230806062334.jpg', 'canceled'),
-(32, 17, 18, 63, '2023-08-06 06:24:32', '2023-08-05', 3, 'abcde', '230806062432.jpg', 'returned');
-
 -- --------------------------------------------------------
 
 --
@@ -67,17 +55,6 @@ CREATE TABLE `items` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `items`
---
-
-INSERT INTO `items` (`item_id`, `location_id`, `item_name`, `item_quantity`, `item_desc`, `deleted_at`) VALUES
-(15, 16, 'Speaker', 24, 'Sebuah speaker samsung', NULL),
-(16, 16, 'Infocus', 6, NULL, NULL),
-(17, 16, 'Pointer', 12, 'Pointer merk logitech, jarak 4 meter', NULL),
-(18, 17, 'Kabel USB', 17, 'Kabel usb type A panjang 2 meter', NULL),
-(19, 17, 'Laptop Asus', 3, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -89,18 +66,6 @@ CREATE TABLE `locations` (
   `location_name` varchar(100) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `locations`
---
-
-INSERT INTO `locations` (`location_id`, `location_name`, `deleted_at`) VALUES
-(15, 'Teknik Kimia', NULL),
-(16, 'Teknik Komputer', NULL),
-(17, 'SIFT', NULL),
-(18, 'Teknik Geodesi', NULL),
-(19, 'Teknik Mesin', NULL),
-(20, 'Teknik Sipil', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,17 +116,6 @@ CREATE TABLE `users` (
   `role` enum('user','admin','superadmin') NOT NULL DEFAULT 'user',
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`user_id`, `location_id`, `password`, `name`, `email`, `reg_number`, `hp_number`, `department`, `role`, `deleted_at`) VALUES
-(59, NULL, '$2y$10$FUAj2w2nTqmZfdsYL7yZuu6JOcmP5pcShHRLG5VwZB1gMDShBYe/O', 'Super Admin', 'superadmin@gmail.com', NULL, '082111111111', NULL, 'superadmin', NULL),
-(60, 17, '$2y$10$ANM4ClOiZkmi41kMxZvnXOt7SNe9FKvZrRt4WK4aqkR8FRM6Hk5nS', 'Admin SIFT', 'adminsift@gmail.com', NULL, '083111111111', NULL, 'admin', NULL),
-(61, 16, '$2y$10$lBhvKafI/iEm2/t28yYqVu0htDnwHylghIIVrW3DQQbTVIMszU0tO', 'Admin Tekkom', 'admintekkom@gmail.com', NULL, '083222222222', NULL, 'admin', NULL),
-(62, NULL, '$2y$10$Y4uG85Jmv0KnVN1ByVd76OxgnjYkHb0WcbydM0Md0629hFtLa9cNm', 'User 1', 'user1@gmail.com', '21120119130111', '085111111111', 'Teknik Komputer', 'user', NULL),
-(63, NULL, '$2y$10$TknEiApdVGIoytzpsw3le.bwJ8Hm9OIUwoMFyluaC5yt/yBVHBbE6', 'User 2', 'user2@gmail.com', '21120119130222', '085222222222', 'Psikologi', 'user', NULL);
 
 --
 -- Indexes for dumped tables
