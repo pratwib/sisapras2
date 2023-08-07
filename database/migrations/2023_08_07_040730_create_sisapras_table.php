@@ -55,9 +55,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('email')->unique('email');
-            $table->string('reg_number');
+            $table->string('reg_number')->nullable();
             $table->string('hp_number', 20);
-            $table->string('department');
+            $table->string('department')->nullable();
             $table->enum('role', ['user', 'admin', 'superadmin'])->default('user');
             $table->softDeletes();
         });
