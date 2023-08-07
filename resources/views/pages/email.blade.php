@@ -607,7 +607,7 @@
 
                                                                         @elseif(request()->routeIs('borrow.approve.' . auth()->user()->role))
                                                                         Kami ingin memberitahu bahwa peminjaman Kamu di Sisarpras telah disetujui.<br /><br />
-                                                                        Segera ambil barang yang Kamu pinjam, {{ $emailDetails['item_name'] }} sebanyak {{ $emailDetails['lend_quantity'] }}
+                                                                        Segera ambil barang yang Kamu pinjam, {{ $emailDetails['item_name'] }} sebanyak {{ $emailDetails['lend_quantity'] }} buah
                                                                         di lokasi yang dipilih yaitu {{ $emailDetails['location_name'] }}.
 
                                                                         @elseif(request()->routeIs('borrow.decline.' .auth()->user()->role))
